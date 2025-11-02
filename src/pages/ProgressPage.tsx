@@ -46,8 +46,8 @@ const ProgressPage: React.FC = () => {
   const progressPercentage = (todaysStats.ayahsStudied / dailyGoal) * 100
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-900 dark:to-gray-800 pb-20">
-      <div className={`max-w-md mx-auto px-4 py-8 ${isRTL ? 'rtl-content' : 'ltr-content'}`}>
+    <div className="min-h-[100dvh] safe-area-pt safe-area-pb bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-900 dark:to-gray-800 pb-24">
+      <div className={`mx-auto w-full max-w-md md:max-w-2xl lg:max-w-3xl px-4 md:px-8 py-8 ${isRTL ? 'rtl-content' : 'ltr-content'}`}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -424,6 +424,19 @@ const StatsTab: React.FC<{
   const hours = Math.floor(summary.timeSpent / 60)
   const minutes = summary.timeSpent % 60
 
+  const trendBase = activityHeatmap.map((day, index) => ({
+    index,
+    date: day.date,
+    value: day.ayahsStudied * 2 + day.timeSpent,
+    ayahsStudied: day.ayahsStudied,
+    timeSpent: day.timeSpent
+  }))
+  const bestDayEntry = trendBase.reduce<typeof trendBase[number] | null>((best, current) => {
+    if (!best) return current
+    return current.value > best.value ? current : best
+  }, null)
+  const trendData = trendBase.map(({ value, date }) => ({ value, date }))
+
   const getIntensityClass = (intensity: number) => {
     if (intensity >= 0.75) return 'bg-emerald-600 dark:bg-emerald-500'
     if (intensity >= 0.5) return 'bg-emerald-400 dark:bg-emerald-400/70'
@@ -517,7 +530,7 @@ const StatsTab: React.FC<{
             <div
               key={day.date}
               className={`aspect-square rounded ${getIntensityClass(day.intensity)}`}
-              title={`${day.date} • ${day.ayahsStudied} ${t.ayahsStudied.toLowerCase()} • ${day.timeSpent} min`}
+              title={`${day.date} • ${day.ayahsStudied} ${t.ayahsStudied} • ${day.timeSpent} ${t.minutes}`}
             />
           ))}
         </div>
@@ -534,6 +547,30 @@ const StatsTab: React.FC<{
           </div>
           <span>{t.moreActivity}</span>
         </div>
+      </div>
+
+      <div className="card p-6">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              {t.bestDay}
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {bestDayEntry
+                ? `${new Date(bestDayEntry.date).toLocaleDateString()} • ${bestDayEntry.ayahsStudied} ${t.ayahsStudied}`
+                : t.bestDaySubtitle}
+            </p>
+          </div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">
+            <p>
+              {t.daysActive}: {currentStats?.daysActive ?? 0}
+            </p>
+            <p>
+              {t.averageSession}: {currentStats?.averageSessionLength ?? 0} {t.minutes}
+            </p>
+          </div>
+        </div>
+        <TrendSparkline data={trendData} />
       </div>
 
       {/* Achievements summary */}
@@ -567,3 +604,45 @@ const StatsTab: React.FC<{
 }
 
 export default ProgressPage
+
+const TrendSparkline: React.FC<{ data: Array<{ value: number; date: string }> }> = ({ data }) => {
+  if (!data.length) {
+    return (
+      <div className="h-20 flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
+        —
+      </div>
+    )
+  }
+
+  const height = 80
+  const width = Math.max(140, data.length * 12)
+  const maxValue = Math.max(...data.map((point) => point.value), 1)
+  const points = data.map((point, index) => {
+    const x = data.length === 1 ? width / 2 : (index / (data.length - 1)) * (width - 8) + 4
+    const y = height - (point.value / maxValue) * (height - 16) - 8
+    return { x, y }
+  })
+
+  const linePath = points
+    .map((point, index) => `${index === 0 ? 'M' : 'L'}${point.x},${point.y}`)
+    .join(' ')
+  const areaPath = `${linePath} L ${points.at(-1)?.x ?? width},${height - 6} L ${points[0]?.x ?? 0},${height - 6} Z`
+
+  return (
+    <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-50 to-white/40 dark:from-emerald-900/20 dark:to-gray-900/40">
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-24" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="trendGradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#10b981" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d={areaPath} fill="url(#trendGradient)" />
+        <path d={linePath} fill="none" stroke="#059669" strokeWidth={2.5} strokeLinecap="round" />
+        {points.map((point, index) => (
+          <circle key={index} cx={point.x} cy={point.y} r={2.6} fill="#10b981" />
+        ))}
+      </svg>
+    </div>
+  )
+}
