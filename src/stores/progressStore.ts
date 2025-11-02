@@ -8,6 +8,17 @@ import {
   Achievement,
   ActivityDay
 } from '../types/quran'
+import { queueProgressSync } from '../services/syncClient'
+
+const safeQueueProgressSync = (payload: Record<string, unknown>) => {
+  try {
+    queueProgressSync(payload)
+  } catch (error) {
+    if (import.meta?.env?.DEV) {
+      console.debug('Progress sync skipped:', error)
+    }
+  }
+}
 
 interface ProgressState extends UserProgress {
   // Additional UI state
@@ -395,6 +406,15 @@ export const useProgressStore = create<ProgressState>()(
             monthlyStats
           }
         })
+
+        const snapshot = get()
+        safeQueueProgressSync({
+          event: 'xp-earned',
+          amount,
+          totalXP: snapshot.totalXP,
+          level: snapshot.level,
+          date: getDateKey(new Date())
+        })
       },
 
       addReadingTime: (minutes: number) => {
@@ -418,6 +438,12 @@ export const useProgressStore = create<ProgressState>()(
             monthlyStats,
             lastStudyDate: new Date().toISOString()
           }
+        })
+
+        safeQueueProgressSync({
+          event: 'reading-time',
+          minutes,
+          date: getDateKey(new Date())
         })
       },
 
@@ -455,6 +481,15 @@ export const useProgressStore = create<ProgressState>()(
             monthlyStats,
             lastStudyDate: new Date().toISOString()
           }
+        })
+
+        const snapshot = get()
+        safeQueueProgressSync({
+          event: 'lesson-complete',
+          lessonId,
+          xpReward,
+          totalXP: snapshot.totalXP,
+          date: getDateKey(new Date())
         })
       },
 
@@ -530,6 +565,16 @@ export const useProgressStore = create<ProgressState>()(
             monthlyStats,
             lastStudyDate: new Date().toISOString()
           }
+        })
+
+        const snapshot = get()
+        safeQueueProgressSync({
+          event: 'study-session',
+          date: today,
+          ayahsStudied,
+          timeSpent,
+          streak: snapshot.streak,
+          totalXP: snapshot.totalXP
         })
       },
 
@@ -666,6 +711,11 @@ export const useProgressStore = create<ProgressState>()(
           achievements: [],
           availableBadges: DEFAULT_BADGES.map(badge => ({ ...badge })),
           error: null
+        })
+
+        safeQueueProgressSync({
+          event: 'progress-reset',
+          date: getDateKey(new Date())
         })
       },
 

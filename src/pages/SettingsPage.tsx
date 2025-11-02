@@ -10,6 +10,7 @@ import { useAudioSync } from '../hooks/useAudioSync'
 import ErrorBoundaryTest from '../components/ErrorBoundaryTest'
 import AudioSettingsTest from '../components/AudioSettingsTest'
 import LanguageToggle from '../components/LanguageToggle'
+import AudioDownloadManager from '../components/AudioDownloadManager'
 
 const SettingsPage: React.FC = () => {
   const navigate = useNavigate()
@@ -571,6 +572,11 @@ const AudioTab: React.FC<{
           </div>
         </div>
       </div>
+
+      <AudioDownloadManager
+        reciters={reciters.map((reciter) => ({ id: reciter.id, name: reciter.name }))}
+        defaultReciterId={preferences.preferredReciter || reciters[0]?.id || '7'}
+      />
 
       {/* Audio quality note */}
       <div className="card p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
