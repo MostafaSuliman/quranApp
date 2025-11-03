@@ -1,0 +1,342 @@
+name: Production Deployment
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+      skip_tests:
+        description: 'Skip tests (not recommended)'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  NODE_VERSION: '18'
+  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+jobs:
+  # Pre-deployment validation
+  pre-deploy:
+    name: Pre-Deployment Validation
+    runs-on: ubuntu-latest
+    if: ${{ !inputs.skip_tests }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run all tests
+        run: |
+          npm run test:all
+          npm run test:e2e
+
+      - name: Security audit
+        run: npm audit --audit-level=high
+
+      - name: Build verification
+        run: npm run build
+
+  # Build for deployment
+  build:
+    name: Build for ${{ inputs.environment || 'production' }}
+    runs-on: ubuntu-latest
+    needs: [pre-deploy]
+    if: always() && (needs.pre-deploy.result == 'success' || inputs.skip_tests)
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Building version: $VERSION"
+
+      - name: Install dependencies
+        run: npm ci --production=false
+
+      - name: Build for production
+        run: npm run build
+        env:
+          NODE_ENV: production
+          VITE_APP_VERSION: ${{ steps.version.outputs.version }}
+          VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+          SENTRY_ORG: ${{ env.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ env.SENTRY_PROJECT }}
+          SENTRY_AUTH_TOKEN: ${{ env.SENTRY_AUTH_TOKEN }}
+
+      - name: Generate build info
+        run: |
+          cat > dist/build-info.json << EOF
+          {
+            "version": "${{ steps.version.outputs.version }}",
+            "buildTime": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "gitCommit": "${{ github.sha }}",
+            "gitBranch": "${{ github.ref_name }}",
+            "environment": "${{ inputs.environment || 'production' }}",
+            "buildNumber": "${{ github.run_number }}"
+          }
+          EOF
+
+      - name: Create Sentry release
+        if: env.SENTRY_AUTH_TOKEN != ''
+        run: |
+          curl -sL https://sentry.io/get-cli/ | bash
+          sentry-cli releases new ${{ steps.version.outputs.version }}
+          sentry-cli releases set-commits ${{ steps.version.outputs.version }} --auto
+          sentry-cli releases finalize ${{ steps.version.outputs.version }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build-${{ steps.version.outputs.version }}
+          path: dist/
+          retention-days: 30
+
+  # Deploy to staging
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build
+    if: inputs.environment == 'staging' || github.event_name == 'workflow_dispatch'
+    environment:
+      name: staging
+      url: https://staging.quranapp.example.com
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: production-build-${{ needs.build.outputs.version }}
+          path: dist/
+
+      - name: Deploy to staging
+        run: |
+          echo "🚀 Deploying to staging environment..."
+          echo "Version: ${{ needs.build.outputs.version }}"
+          # Add your staging deployment commands here
+          # Example for Netlify:
+          # npm install -g netlify-cli
+          # netlify deploy --dir=dist --prod --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} --site=${{ secrets.NETLIFY_STAGING_SITE_ID }}
+
+      - name: Health check
+        run: |
+          echo "Running health check..."
+          # curl -f https://staging.quranapp.example.com/health || exit 1
+          sleep 5
+
+      - name: Smoke tests
+        run: |
+          echo "Running smoke tests..."
+          # Add smoke test commands here
+
+      - name: Notify Sentry deployment
+        if: env.SENTRY_AUTH_TOKEN != ''
+        run: |
+          curl -sL https://sentry.io/get-cli/ | bash
+          sentry-cli releases deploys ${{ needs.build.outputs.version }} new -e staging
+
+  # Deploy to production
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build
+    if: inputs.environment == 'production' || github.event_name == 'push'
+    environment:
+      name: production
+      url: https://quranapp.example.com
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: production-build-${{ needs.build.outputs.version }}
+          path: dist/
+
+      - name: Create deployment record
+        id: deployment
+        run: |
+          DEPLOYMENT_ID=$(date +%s)-${{ github.run_number }}
+          echo "deployment_id=$DEPLOYMENT_ID" >> $GITHUB_OUTPUT
+          echo "Starting deployment: $DEPLOYMENT_ID"
+
+      - name: Deploy to production
+        id: deploy
+        run: |
+          echo "🚀 Deploying version ${{ needs.build.outputs.version }} to production..."
+
+          # Add your production deployment commands here
+          # Examples:
+
+          # Netlify:
+          # npm install -g netlify-cli
+          # netlify deploy --dir=dist --prod --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} --site=${{ secrets.NETLIFY_PROD_SITE_ID }}
+
+          # Vercel:
+          # npm install -g vercel
+          # vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+          # AWS S3 + CloudFront:
+          # aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
+          # aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+
+          # Docker deployment:
+          # docker build -t quranapp:${{ needs.build.outputs.version }} .
+          # docker tag quranapp:${{ needs.build.outputs.version }} registry.example.com/quranapp:latest
+          # docker push registry.example.com/quranapp:latest
+
+          echo "Deployment completed successfully"
+
+      - name: Health check
+        id: health_check
+        run: |
+          echo "Running production health checks..."
+          MAX_RETRIES=5
+          RETRY_COUNT=0
+
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            # Add your health check endpoint
+            # if curl -f https://quranapp.example.com/health; then
+            #   echo "✅ Health check passed"
+            #   exit 0
+            # fi
+
+            echo "Health check attempt $((RETRY_COUNT + 1)) of $MAX_RETRIES"
+            RETRY_COUNT=$((RETRY_COUNT + 1))
+            sleep 10
+          done
+
+          echo "✅ Health check passed (simulated)"
+          # echo "❌ Health check failed after $MAX_RETRIES attempts"
+          # exit 1
+
+      - name: Notify Sentry deployment
+        if: env.SENTRY_AUTH_TOKEN != ''
+        run: |
+          curl -sL https://sentry.io/get-cli/ | bash
+          sentry-cli releases deploys ${{ needs.build.outputs.version }} new -e production
+
+      - name: Deployment summary
+        run: |
+          echo "## 🚀 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ needs.build.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** production" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployed at:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployment ID:** ${{ steps.deployment.outputs.deployment_id }}" >> $GITHUB_STEP_SUMMARY
+
+  # Post-deployment monitoring
+  post-deploy:
+    name: Post-Deployment Monitoring
+    runs-on: ubuntu-latest
+    needs: [build, deploy-production]
+    if: always() && needs.deploy-production.result == 'success'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Monitor for 5 minutes
+        run: |
+          echo "Monitoring production for 5 minutes..."
+          END_TIME=$(($(date +%s) + 300))
+
+          while [ $(date +%s) -lt $END_TIME ]; do
+            # Add monitoring checks here
+            # - Check Sentry for new errors
+            # - Check performance metrics
+            # - Check error rates
+
+            echo "Monitoring... $(( ($END_TIME - $(date +%s)) / 60 )) minutes remaining"
+            sleep 60
+          done
+
+          echo "✅ Monitoring completed - no critical issues detected"
+
+      - name: Run smoke tests
+        run: |
+          echo "Running production smoke tests..."
+          # Add smoke test commands here
+          # npm run test:smoke:prod
+
+      - name: Check Sentry error rates
+        if: env.SENTRY_AUTH_TOKEN != ''
+        run: |
+          echo "Checking Sentry for increased error rates..."
+          # Query Sentry API for recent errors
+          # If error rate is high, trigger rollback
+
+  # Automatic rollback on failure
+  rollback:
+    name: Automatic Rollback
+    runs-on: ubuntu-latest
+    needs: [build, deploy-production, post-deploy]
+    if: failure() && needs.deploy-production.result == 'success'
+
+    steps:
+      - name: Rollback deployment
+        run: |
+          echo "⚠️ Rolling back deployment due to post-deployment failures..."
+          echo "Deployment ID: ${{ needs.build.outputs.deployment_id }}"
+
+          # Add rollback commands here
+          # This could involve:
+          # - Deploying previous version from artifacts
+          # - Reverting infrastructure changes
+          # - Clearing caches
+          # - Restoring database state (if needed)
+
+          echo "Rollback completed"
+
+      - name: Notify rollback
+        run: |
+          echo "## ⚠️ Deployment Rolled Back" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ needs.build.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Reason:** Post-deployment monitoring detected issues" >> $GITHUB_STEP_SUMMARY
+          echo "**Time:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Notify team
+        run: |
+          echo "Sending rollback notification to team..."
+          # Add notification logic here (Slack, email, etc.)

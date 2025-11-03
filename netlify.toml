@@ -1,0 +1,74 @@
+# Netlify Configuration for QuranApp
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+
+# Production deployment settings
+[context.production]
+  command = "npm run build"
+
+[context.production.environment]
+  VITE_BUILD_ENV = "production"
+
+# Deploy Preview settings (for PRs)
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.deploy-preview.environment]
+  VITE_BUILD_ENV = "staging"
+
+# Branch deploy settings
+[context.branch-deploy]
+  command = "npm run build"
+
+# Redirect rules
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    X-XSS-Protection = "1; mode=block"
+    # Content Security Policy with Sentry support
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://browser.sentry-cdn.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: blob: https://api.quran.com https://cdn.islamic.network; connect-src 'self' https://api.quran.com https://cdn.islamic.network https://everyayah.com https://*.everyayah.com https://sentry.io https://*.sentry.io; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com data:; media-src 'self' https://cdn.islamic.network https://everyayah.com https://*.everyayah.com blob: data:; object-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# PWA Service Worker
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
+# Manifest - publicly accessible (fixes 401 error)
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "application/manifest+json"

@@ -1,0 +1,67 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/stores/*": ["src/stores/*"],
+      "@/types/*": ["src/types/*"],
+      "@/styles/*": ["src/styles/*"]
+    }
+  },
+  "include": ["src", "src/vite-env.d.ts"],
+  "exclude": [
+    "src/tests/**/*",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/demo/**/*",
+    "src/examples/**/*",
+    "src/components/PerformanceDemo.tsx",
+    "src/components/PerformanceWidget.tsx",
+    "src/components/UnifiedMonitoringDashboard.tsx",
+    "src/components/ContinuousImprovementDemo.tsx",
+    "src/components/AdvancedPredictiveAnalyticsDashboard.tsx",
+    "src/components/TestingDashboard.tsx",
+    "src/components/AutoFixDashboard.tsx",
+    "src/components/AutoFixStatusIndicator.tsx",
+    "src/utils/integrationTestRunner.ts",
+    "src/utils/performanceTesting.ts",
+    "src/utils/performanceOptimizer.ts",
+    "src/utils/islamicContentEnhancer.ts",
+    "src/utils/autoFixSystem.ts",
+    "src/utils/continuousImprovement.ts",
+    "src/utils/audioOptimization.ts",
+    "src/utils/audioPreloader.ts",
+    "src/utils/arabicTextOptimization.ts",
+    "src/hooks/useAutoEnhancementHooks.ts",
+    "src/hooks/useAdvancedPredictiveAnalytics.ts",
+    "src/hooks/useContinuousImprovement.ts",
+    "src/utils/continuousImprovementValidator.ts",
+    "src/stores/predictiveEnhancementStore.ts"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

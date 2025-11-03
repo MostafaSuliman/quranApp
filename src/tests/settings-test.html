@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .pass { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>QuranApp Settings Test</h1>
+    <p>This test verifies that the settings functionality is working correctly.</p>
+    
+    <div class="test-section">
+        <h2>Manual Test Instructions</h2>
+        <ol>
+            <li>Open the app in your browser: <a href="http://localhost:3001/" target="_blank">http://localhost:3001/</a></li>
+            <li>Navigate to the Settings page</li>
+            <li>Test each setting:</li>
+            <ul>
+                <li><strong>Dark Mode Toggle:</strong> Should immediately change the app theme</li>
+                <li><strong>Animation Toggle:</strong> Should enable/disable animations</li>
+                <li><strong>Translation Settings:</strong> Should show/hide translation text in reading pages</li>
+                <li><strong>Transliteration Settings:</strong> Should show/hide transliteration text</li>
+                <li><strong>Reciter Selection:</strong> Should change the preferred reciter for audio</li>
+                <li><strong>Playback Speed:</strong> Should adjust audio playback speed</li>
+                <li><strong>Reading Mode:</strong> Should change default reading mode</li>
+                <li><strong>Notification Time:</strong> Should save notification preferences</li>
+            </ul>
+            <li>Navigate to other pages and verify settings are applied</li>
+            <li>Refresh the browser and verify settings persist</li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>Expected Behavior</h2>
+        <ul>
+            <li>✅ Settings changes should take effect immediately</li>
+            <li>✅ Settings should persist after page refresh</li>
+            <li>✅ Dark mode should apply to the entire app</li>
+            <li>✅ Audio settings should affect playback</li>
+            <li>✅ Translation settings should affect text display</li>
+            <li>✅ Settings should be synchronized across components</li>
+        </ul>
+    </div>
+    
+    <div class="test-section">
+        <h2>Common Issues (Fixed)</h2>
+        <ul>
+            <li>❌ Settings not persisting → <span class="pass">FIXED: Added proper localStorage persistence</span></li>
+            <li>❌ Dark mode not applying → <span class="pass">FIXED: Added DOM initialization and sync</span></li>
+            <li>❌ Audio settings disconnect → <span class="pass">FIXED: Added preferences-audio store sync</span></li>
+            <li>❌ Changes not reflecting → <span class="pass">FIXED: Added real-time DOM updates</span></li>
+        </ul>
+    </div>
+    
+    <div class="test-section">
+        <h2>Developer Console Tests</h2>
+        <p>You can also test settings programmatically in the browser console:</p>
+        <pre>
+// Test preferences store
+const prefsStore = window.usePreferencesStore?.getState?.()
+console.log('Current preferences:', prefsStore?.preferences)
+
+// Test dark mode toggle
+prefsStore?.toggleDarkMode()
+
+// Test reciter change
+prefsStore?.updateReciter('1')
+
+// Test playback speed
+prefsStore?.updatePlaybackSpeed(1.5)
+        </pre>
+    </div>
+</body>
+</html>

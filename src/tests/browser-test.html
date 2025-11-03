@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quran API Test</title>
+    <style>
+        body {
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .arabic {
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            font-size: 1.5rem;
+            direction: rtl;
+            text-align: right;
+            line-height: 2.2;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; border: 1px solid #f5c6cb; }
+        .loading { background-color: #d1ecf1; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>Quran API Test</h1>
+    <div id="results"></div>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+        
+        // Test API directly
+        async function testQuranApi() {
+            addResult('Testing Quran API...', 'loading');
+            
+            try {
+                // Test the API endpoint we're using
+                const response = await fetch('https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=1');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                addResult(`✅ API Response Success! Got ${data.verses.length} verses`, 'success');
+                
+                // Display first 3 verses
+                data.verses.slice(0, 3).forEach((verse, index) => {
+                    addResult(`
+                        <div>
+                            <strong>Verse ${verse.verse_key}:</strong><br>
+                            <div class="arabic">${verse.text_uthmani}</div>
+                            <small>Raw text length: ${verse.text_uthmani.length} characters</small>
+                        </div>
+                    `, 'success');
+                });
+                
+            } catch (error) {
+                addResult(`❌ API Error: ${error.message}`, 'error');
+                console.error('Full error:', error);
+            }
+        }
+        
+        // Test font loading
+        function testFonts() {
+            addResult('Testing Arabic fonts...', 'loading');
+            
+            const fonts = ['Amiri', 'Traditional Arabic', 'Tahoma'];
+            fonts.forEach(font => {
+                const testEl = document.createElement('div');
+                testEl.style.fontFamily = font;
+                testEl.style.fontSize = '16px';
+                testEl.textContent = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+                testEl.style.position = 'absolute';
+                testEl.style.top = '-1000px';
+                document.body.appendChild(testEl);
+                
+                const width = testEl.offsetWidth;
+                document.body.removeChild(testEl);
+                
+                addResult(`Font "${font}": ${width > 0 ? '✅ Working' : '❌ Failed'} (width: ${width}px)`, width > 0 ? 'success' : 'error');
+            });
+        }
+        
+        // Run tests
+        testFonts();
+        testQuranApi();
+        
+        // Make functions available globally for console testing
+        window.testQuranApi = testQuranApi;
+        window.testFonts = testFonts;
+        
+        console.log('Test functions available:');
+        console.log('- testQuranApi()');
+        console.log('- testFonts()');
+    </script>
+</body>
+</html>

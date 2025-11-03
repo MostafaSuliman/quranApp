@@ -1,0 +1,725 @@
+
+> quran-memorization-app@1.0.0 build
+> tsc && vite build
+
+src/components/AudioNavigationDemo.tsx(7,1): error TS6192: All imports in import declaration are unused.
+src/components/AudioNavigationSettings.tsx(15,1): error TS6133: 'useUIText' is declared but its value is never read.
+src/components/AudioNavigationTest.tsx(24,9): error TS6133: 'navigate' is declared but its value is never read.
+src/components/AudioNavigationTest.tsx(31,5): error TS6133: 'stop' is declared but its value is never read.
+src/components/AudioNavigationTest.tsx(188,59): error TS6133: 'index' is declared but its value is never read.
+src/components/AudioPlayer.optimized.memo.tsx(324,11): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/AudioPlayer.optimized.memo.tsx(325,11): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/AudioPlayer.tsx(324,11): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/AudioPlayer.tsx(325,11): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/AutoFixDashboard.tsx(8,55): error TS6133: 'analyticsEngine' is declared but its value is never read.
+src/components/AutoFixDashboard.tsx(58,75): error TS2783: 'component' is specified more than once, so this usage will be overwritten.
+src/components/AutoFixStatusIndicator.tsx(8,25): error TS6133: 'healthMonitor' is declared but its value is never read.
+src/components/AutoFixStatusIndicator.tsx(48,9): error TS6133: 'getHealthIcon' is declared but its value is never read.
+src/components/AyahHighlighter.tsx(86,18): error TS2339: Property 'glow' does not exist on type '{ readonly bg: "bg-transparent"; readonly border: "border-transparent"; readonly text: "text-gray-900 dark:text-white"; readonly ring: ""; } | { readonly bg: "bg-emerald-50 dark:bg-emerald-900/20"; readonly border: "border-emerald-200 dark:border-emerald-700"; readonly text: "text-emerald-900 dark:text-emerald-100";...'.
+  Property 'glow' does not exist on type '{ readonly bg: "bg-transparent"; readonly border: "border-transparent"; readonly text: "text-gray-900 dark:text-white"; readonly ring: ""; }'.
+src/components/ContinuousImprovementDemo.tsx(106,24): error TS2339: Property 'implementOptimization' does not exist on type 'OptimizationEngineState'.
+src/components/GlobalAudioPopup.tsx(48,10): error TS6133: 'showVolumeSlider' is declared but its value is never read.
+src/components/GlobalAudioPopup.tsx(48,28): error TS6133: 'setShowVolumeSlider' is declared but its value is never read.
+src/components/GlobalAudioPopup.tsx(94,22): error TS2345: Argument of type 'number' is not assignable to parameter of type 'PlaybackSpeed'.
+src/components/MushafVerseFlow.tsx(145,31): error TS6133: 'lineIndex' is declared but its value is never read.
+src/components/Navigation.tsx(48,20): error TS6133: 'isRTL' is declared but its value is never read.
+src/components/PerformanceDashboard.tsx(12,3): error TS6133: 'CpuChipIcon' is declared but its value is never read.
+src/components/PerformanceDashboard.tsx(13,3): error TS6133: 'ClockIcon' is declared but its value is never read.
+src/components/PerformanceDashboard.tsx(40,5): error TS6133: 'metricsHistory' is declared but its value is never read.
+src/components/PerformanceDashboard.tsx(186,41): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/PerformanceDashboard.tsx(187,41): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/PerformanceDashboard.tsx(191,35): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/PerformanceDashboard.tsx(203,41): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/PerformanceDashboard.tsx(204,41): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/PerformanceDashboard.tsx(208,35): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/PerformanceDashboard.tsx(220,41): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/PerformanceDashboard.tsx(221,41): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/components/PerformanceDemo.tsx(20,5): error TS2339: Property 'getRealTimeOptimizationStatus' does not exist on type 'PerformanceMonitorState'.
+src/components/PerformanceDemo.tsx(21,5): error TS2339: Property 'getPerformanceInsights' does not exist on type 'PerformanceMonitorState'.
+src/components/PerformanceDemo.tsx(280,28): error TS7006: Parameter 'insight' implicitly has an 'any' type.
+src/components/PerformanceDemo.tsx(280,37): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/PerformanceWidget.tsx(12,3): error TS6133: 'BoltIcon' is declared but its value is never read.
+src/components/PerformanceWidget.tsx(39,5): error TS6133: 'manualOptimization' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(13,3): error TS6133: 'CpuChipIcon' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(16,3): error TS6133: 'ExclamationTriangleIcon' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(18,3): error TS6133: 'XCircleIcon' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(19,3): error TS6133: 'ArrowPathIcon' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(21,3): error TS6133: 'GlobeAltIcon' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(24,3): error TS6133: 'WrenchScrewdriverIcon' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(31,1): error TS6133: 'autoFixSystem' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(32,1): error TS6133: 'performanceOptimizer' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(129,9): error TS6133: 'continuousImprovement' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(137,9): error TS6133: 'autoEnhancement' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(160,15): error TS6133: 'uptime' is declared but its value is never read.
+src/components/UnifiedMonitoringDashboard.tsx(163,72): error TS2339: Property 'getComplianceScore' does not exist on type 'IslamicContentValidationGuardian'.
+src/components/UnifiedMonitoringDashboard.tsx(200,38): error TS6133: 'serviceName' is declared but its value is never read.
+src/contexts/AudioNavigationProvider.tsx(50,10): error TS6133: 'pendingPath' is declared but its value is never read.
+src/contexts/AudioNavigationProvider.tsx(54,9): error TS6133: 'navigationPromise' is declared but its value is never read.
+src/contexts/AudioNavigationProvider.tsx(167,13): error TS6133: 'from' is declared but its value is never read.
+src/demo/enhanced-auto-fix-demo.ts(68,55): error TS2339: Property 'document' does not exist on type 'never'.
+src/demo/enhanced-auto-fix-demo.ts(69,59): error TS2339: Property 'localStorage' does not exist on type 'never'.
+src/demo/enhanced-auto-fix-demo.ts(70,52): error TS2339: Property 'fetch' does not exist on type 'never'.
+src/demo/enhanced-auto-fix-demo.ts(71,58): error TS2339: Property 'performance' does not exist on type 'never'.
+src/examples/analytics-usage.ts(177,33): error TS2551: Property 'engagementTrend' does not exist on type '{ churnRisk: number; engagementScore: number; retentionProbability: Record<string, number>; featureAffinityScore: Record<string, number>; optimalEngagementStrategy: string[]; }'. Did you mean 'engagementScore'?
+src/hooks/useAdvancedPredictiveAnalytics.ts(79,20): error TS2502: 'settings' is referenced directly or indirectly in its own type annotation.
+src/hooks/useAutoEnhancementHooks.ts(45,48): error TS6133: 'config' is declared but its value is never read.
+src/hooks/useAutoEnhancementHooks.ts(47,9): error TS6133: 'optimization' is declared but its value is never read.
+src/hooks/useAutoEnhancementHooks.ts(72,37): error TS2339: Property 'now' does not exist on type 'PerformanceMonitorState'.
+src/hooks/useAutoEnhancementHooks.ts(75,38): error TS2339: Property 'now' does not exist on type 'PerformanceMonitorState'.
+src/hooks/useAutoEnhancementHooks.ts(89,22): error TS2353: Object literal may only specify known properties, and 'page' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(121,13): error TS2322: Type '"api"' is not assignable to type '"search" | "audio" | "memorization" | "navigation" | "setting" | "ui_interaction" | "islamic_practice" | "reading_session" | "funnel_step"'.
+src/hooks/useAutoEnhancementHooks.ts(124,15): error TS2353: Object literal may only specify known properties, and 'endpoint' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(176,48): error TS6133: 'config' is declared but its value is never read.
+src/hooks/useAutoEnhancementHooks.ts(266,17): error TS2353: Object literal may only specify known properties, and 'scrollY' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(315,34): error TS2339: Property 'optimizeForAnticipatedLoad' does not exist on type 'OptimizationEngineState'.
+src/hooks/useAutoEnhancementHooks.ts(394,19): error TS2322: Type '"content"' is not assignable to type '"search" | "audio" | "memorization" | "navigation" | "setting" | "ui_interaction" | "islamic_practice" | "reading_session" | "funnel_step"'.
+src/hooks/useAutoEnhancementHooks.ts(399,21): error TS2353: Object literal may only specify known properties, and 'textLength' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(440,17): error TS2353: Object literal may only specify known properties, and 'readingMode' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(459,38): error TS2339: Property 'subscribe' does not exist on type 'QuranState'.
+src/hooks/useAutoEnhancementHooks.ts(459,49): error TS7006: Parameter 'state' implicitly has an 'any' type.
+src/hooks/useAutoEnhancementHooks.ts(459,56): error TS7006: Parameter 'prevState' implicitly has an 'any' type.
+src/hooks/useAutoEnhancementHooks.ts(519,42): error TS6133: 'config' is declared but its value is never read.
+src/hooks/useAutoEnhancementHooks.ts(523,9): error TS6133: 'optimization' is declared but its value is never read.
+src/hooks/useAutoEnhancementHooks.ts(568,17): error TS2322: Type 'number | null' is not assignable to type 'number | undefined'.
+  Type 'null' is not assignable to type 'number | undefined'.
+src/hooks/useAutoEnhancementHooks.ts(581,38): error TS2339: Property 'subscribe' does not exist on type 'AudioPlayerState'.
+src/hooks/useAutoEnhancementHooks.ts(581,49): error TS7006: Parameter 'state' implicitly has an 'any' type.
+src/hooks/useAutoEnhancementHooks.ts(581,56): error TS7006: Parameter 'prevState' implicitly has an 'any' type.
+src/hooks/useAutoEnhancementHooks.ts(619,19): error TS2353: Object literal may only specify known properties, and 'nextAyah' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(663,17): error TS2353: Object literal may only specify known properties, and 'networkType' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(715,124): error TS2339: Property 'executionTime' does not exist on type 'HookMetrics'.
+src/hooks/useAutoEnhancementHooks.ts(753,21): error TS2353: Object literal may only specify known properties, and 'recommendationId' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(768,41): error TS2339: Property 'subscribe' does not exist on type 'ProgressState'.
+src/hooks/useAutoEnhancementHooks.ts(768,52): error TS7006: Parameter 'state' implicitly has an 'any' type.
+src/hooks/useAutoEnhancementHooks.ts(768,59): error TS7006: Parameter 'prevState' implicitly has an 'any' type.
+src/hooks/useAutoEnhancementHooks.ts(803,17): error TS2353: Object literal may only specify known properties, and 'sessionCount' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; studyMethod?: string | undefined; timeSpent?: number | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(833,34): error TS2339: Property 'success' does not exist on type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useAutoEnhancementHooks.ts(858,21): error TS6133: 'recommendations' is declared but its value is never read.
+src/hooks/useAutoEnhancementHooks.ts(867,19): error TS2353: Object literal may only specify known properties, and 'optimalHour' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/hooks/useContinuousImprovement.ts(171,50): error TS2339: Property 'identifyPerformanceBottlenecks' does not exist on type 'PerformanceMonitorState'.
+src/hooks/useContinuousImprovement.ts(293,48): error TS2339: Property 'implementOptimization' does not exist on type 'OptimizationEngineState'.
+src/hooks/useContinuousImprovement.ts(329,25): error TS2339: Property 'runOptimizationCycle' does not exist on type 'PerformanceMonitorState'.
+src/hooks/useContinuousImprovement.ts(365,45): error TS2554: Expected 1 arguments, but got 0.
+src/hooks/useContinuousImprovement.ts(806,41): error TS6133: 'data' is declared but its value is never read.
+src/hooks/useContinuousImprovement.ts(815,45): error TS6133: 'optimizationResults' is declared but its value is never read.
+src/hooks/usePerformanceOptimization.ts(209,41): error TS6133: 'e' is declared but its value is never read.
+src/hooks/usePerformanceOptimization.ts(322,14): error TS2352: Conversion of type 'Promise<void> | undefined' to type 'Promise<number>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type 'Promise<void>' is not comparable to type 'Promise<number>'.
+    Type 'void' is not comparable to type 'number'.
+src/hooks/usePerformanceOptimization.ts(322,62): error TS2345: Argument of type '() => Promise<number>' is not assignable to parameter of type '() => void | Promise<void>'.
+  Type 'Promise<number>' is not assignable to type 'void | Promise<void>'.
+    Type 'Promise<number>' is not assignable to type 'Promise<void>'.
+      Type 'number' is not assignable to type 'void'.
+src/hooks/usePerformanceOptimization.ts(379,14): error TS2352: Conversion of type 'Promise<void> | undefined' to type 'Promise<number>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type 'Promise<void>' is not comparable to type 'Promise<number>'.
+    Type 'void' is not comparable to type 'number'.
+src/hooks/usePerformanceOptimization.ts(379,60): error TS2345: Argument of type '() => Promise<number>' is not assignable to parameter of type '() => void | Promise<void>'.
+  Type 'Promise<number>' is not assignable to type 'void | Promise<void>'.
+    Type 'Promise<number>' is not assignable to type 'Promise<void>'.
+      Type 'number' is not assignable to type 'void'.
+src/hooks/usePerformanceOptimization.ts(514,32): error TS2339: Property 'preloadFonts' does not exist on type 'AudioPerformanceControls'.
+src/main.tsx(53,15): error TS18046: 'error' is of type 'unknown'.
+src/mocks/handlers.ts(9,10): error TS6133: 'quranFixtures' is declared but its value is never read.
+src/pages/HomePage.tsx(12,20): error TS6133: 'isRTL' is declared but its value is never read.
+src/pages/LessonPage.tsx(610,14): error TS2304: Cannot find name 't'.
+src/pages/MushafReaderPage.tsx(660,27): error TS2304: Cannot find name 'playAyahAudio'.
+src/pages/OnboardingPage.tsx(206,33): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(207,33): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(208,33): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(209,33): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(284,14): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(290,14): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(301,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(302,22): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(307,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(308,22): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(313,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(314,22): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(353,14): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(359,14): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(368,58): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(369,57): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(370,57): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(371,51): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(372,50): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(380,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(406,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(417,18): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(429,18): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(440,14): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(446,14): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(455,50): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(456,50): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(457,52): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(458,52): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(459,52): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(467,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(470,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(504,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(513,16): error TS2304: Cannot find name 't'.
+src/pages/OnboardingPage.tsx(523,14): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(180,68): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(183,19): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(194,68): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(202,14): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(205,67): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(219,18): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(220,46): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(228,14): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(231,55): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(246,14): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(250,53): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(262,68): error TS2304: Cannot find name 't'.
+src/pages/ProgressPage.tsx(270,68): error TS2304: Cannot find name 't'.
+src/pages/SettingsPage.tsx(16,20): error TS6133: 'isRTL' is declared but its value is never read.
+src/pages/SettingsPage.tsx(92,16): error TS2339: Property 'settingsTitle' does not exist on type 'UIText'.
+src/pages/TraditionalMushafDemo.tsx(23,7): error TS2322: Type 'boolean' is not assignable to type '{ recommended: boolean; obligatory: boolean; }'.
+src/pages/TraditionalMushafDemo.tsx(32,7): error TS2322: Type 'boolean' is not assignable to type '{ recommended: boolean; obligatory: boolean; }'.
+src/pages/TraditionalMushafDemo.tsx(41,7): error TS2322: Type 'boolean' is not assignable to type '{ recommended: boolean; obligatory: boolean; }'.
+src/pages/TraditionalMushafDemo.tsx(50,7): error TS2322: Type 'boolean' is not assignable to type '{ recommended: boolean; obligatory: boolean; }'.
+src/pages/TraditionalMushafDemo.tsx(59,7): error TS2322: Type 'boolean' is not assignable to type '{ recommended: boolean; obligatory: boolean; }'.
+src/pages/TraditionalMushafDemo.tsx(68,7): error TS2322: Type 'boolean' is not assignable to type '{ recommended: boolean; obligatory: boolean; }'.
+src/pages/TraditionalMushafDemo.tsx(77,7): error TS2322: Type 'boolean' is not assignable to type '{ recommended: boolean; obligatory: boolean; }'.
+src/security/AuthenticationManager.ts(8,22): error TS2307: Cannot find module 'crypto-js' or its corresponding type declarations.
+src/security/AuthenticationManager.ts(476,14): error TS6133: 'header' is declared but its value is never read.
+src/security/AuthenticationManager.ts(476,31): error TS6133: 'signature' is declared but its value is never read.
+src/security/CSPManager.ts(295,49): error TS6133: 'type' is declared but its value is never read.
+src/security/CSRFProtection.ts(6,22): error TS2307: Cannot find module 'crypto-js' or its corresponding type declarations.
+src/security/CSRFProtection.ts(110,49): error TS6133: 'sessionId' is declared but its value is never read.
+src/security/CSRFProtection.ts(188,51): error TS2345: Argument of type 'boolean | undefined' is not assignable to parameter of type 'boolean'.
+  Type 'undefined' is not assignable to type 'boolean'.
+src/security/EncryptionManager.ts(6,22): error TS2307: Cannot find module 'crypto-js' or its corresponding type declarations.
+src/security/index.ts(8,71): error TS2300: Duplicate identifier 'SecurityLevel'.
+src/security/index.ts(43,33): error TS2300: Duplicate identifier 'ContentMetadata'.
+src/security/index.ts(49,49): error TS2304: Cannot find name 'SecurityLevel'.
+src/security/index.ts(49,86): error TS2304: Cannot find name 'SecurityManager'.
+src/security/index.ts(50,27): error TS2304: Cannot find name 'SecurityManager'.
+src/security/index.ts(59,27): error TS2304: Cannot find name 'SecurityManager'.
+src/security/index.ts(60,25): error TS2304: Cannot find name 'XSSProtection'.
+src/security/index.ts(61,26): error TS2304: Cannot find name 'CSRFProtection'.
+src/security/index.ts(62,29): error TS2304: Cannot find name 'EncryptionManager'.
+src/security/index.ts(63,23): error TS2304: Cannot find name 'AuthenticationManager'.
+src/security/index.ts(64,23): error TS2304: Cannot find name 'RateLimiter'.
+src/security/index.ts(65,26): error TS2304: Cannot find name 'PrivacyManager'.
+src/security/index.ts(66,28): error TS2304: Cannot find name 'IslamicContentIntegrity'.
+src/security/index.ts(85,55): error TS2304: Cannot find name 'ContentMetadata'.
+src/security/index.ts(95,26): error TS2304: Cannot find name 'CSRFProtection'.
+src/security/index.ts(96,23): error TS2304: Cannot find name 'RateLimiter'.
+src/security/index.ts(137,12): error TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+src/security/index.ts(142,15): error TS2300: Duplicate identifier 'SecurityLevel'.
+src/security/index.ts(143,15): error TS2300: Duplicate identifier 'ContentMetadata'.
+src/security/IslamicContentIntegrity.ts(8,22): error TS2307: Cannot find module 'crypto-js' or its corresponding type declarations.
+src/security/IslamicContentIntegrity.ts(339,5): error TS6133: 'errors' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(367,5): error TS6133: 'errors' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(391,5): error TS6133: 'errors' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(415,5): error TS6133: 'errors' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(478,11): error TS6133: 'commonPhrases' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(536,31): error TS6133: 'chapter' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(536,49): error TS6133: 'verse' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(541,31): error TS6133: 'narrator' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(547,5): error TS6133: 'content' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(548,5): error TS6133: 'metadata' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(554,39): error TS6133: 'translator' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(560,5): error TS6133: 'content' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(561,5): error TS6133: 'metadata' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(567,36): error TS6133: 'reciter' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(572,35): error TS6133: 'content' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(577,36): error TS6133: 'scholar' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(583,5): error TS6133: 'content' is declared but its value is never read.
+src/security/IslamicContentIntegrity.ts(584,5): error TS6133: 'metadata' is declared but its value is never read.
+src/security/PrivacyManager.ts(183,7): error TS2740: Type '{ [k: string]: boolean; }' is missing the following properties from type 'PrivacySettings': analytics, marketing, functional, personalization, and 4 more.
+src/security/PrivacyManager.ts(461,40): error TS6133: 'userId' is declared but its value is never read.
+src/security/PrivacyManager.ts(464,11): error TS6133: 'anonymousId' is declared but its value is never read.
+src/security/RateLimiter.ts(575,19): error TS6133: 'ruleName' is declared but its value is never read.
+src/security/SecurityManager.ts(64,11): error TS6133: 'config' is declared but its value is never read.
+src/security/SecurityManager.ts(78,11): error TS6133: 'privacyManager' is declared but its value is never read.
+src/security/SecurityManager.ts(310,45): error TS6133: 'data' is declared but its value is never read.
+src/security/SecurityManager.ts(403,46): error TS6133: 'data' is declared but its value is never read.
+src/security/SecurityManager.ts(415,31): error TS6133: 'data' is declared but its value is never read.
+src/security/SecurityManager.ts(481,44): error TS6133: 'component' is declared but its value is never read.
+src/security/SecurityManager.ts(733,11): error TS6133: 'rateLimitStatus' is declared but its value is never read.
+src/security/SecurityManager.ts(734,11): error TS6133: 'authAttempts' is declared but its value is never read.
+src/security/XSSProtection.ts(40,16): error TS2339: Property 'hasAttribute' does not exist on type 'Node'.
+src/security/XSSProtection.ts(40,37): error TS2339: Property 'hasAttribute' does not exist on type 'Node'.
+src/security/XSSProtection.ts(41,26): error TS2339: Property 'getAttribute' does not exist on type 'Node'.
+src/security/XSSProtection.ts(90,7): error TS2322: Type 'TrustedHTML' is not assignable to type 'string'.
+src/services/api/apiService.ts(16,1): error TS6133: 'indexedDB' is declared but its value is never read.
+src/services/api/apiService.ts(300,31): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/services/autofix/autoFixDetectors.ts(253,55): error TS6133: 'error' is declared but its value is never read.
+src/services/autofix/autoFixDetectors.ts(253,67): error TS6133: 'context' is declared but its value is never read.
+src/services/autofix/autoFixDetectors.ts(313,57): error TS6133: 'rootCauses' is declared but its value is never read.
+src/services/autofix/autoFixDetectors.ts(395,36): error TS2339: Property 'encodingIntegrity' does not exist on type 'AuthenticityMetrics'.
+src/services/autofix/autoFixDetectors.ts(409,46): error TS6133: 'context' is declared but its value is never read.
+src/services/autofix/autoFixDetectors.ts(419,45): error TS6133: 'context' is declared but its value is never read.
+src/services/autofix/autoFixDetectors.ts(578,30): error TS6133: 'index' is declared but its value is never read.
+src/services/communityContentModerator.ts(8,1): error TS6192: All imports in import declaration are unused.
+src/services/communityContentModerator.ts(9,1): error TS6133: 'islamicContentMonitor' is declared but its value is never read.
+src/services/communityContentModerator.ts(68,14): error TS2323: Cannot redeclare exported variable 'CulturalSensitivityValidator'.
+src/services/communityContentModerator.ts(171,14): error TS2323: Cannot redeclare exported variable 'IslamicValuesComplianceChecker'.
+src/services/communityContentModerator.ts(238,14): error TS2323: Cannot redeclare exported variable 'UserReputationSystem'.
+src/services/communityContentModerator.ts(297,14): error TS2323: Cannot redeclare exported variable 'ContentQualityValidator'.
+src/services/communityContentModerator.ts(659,3): error TS2323: Cannot redeclare exported variable 'CulturalSensitivityValidator'.
+src/services/communityContentModerator.ts(659,3): error TS2484: Export declaration conflicts with exported declaration of 'CulturalSensitivityValidator'.
+src/services/communityContentModerator.ts(660,3): error TS2323: Cannot redeclare exported variable 'IslamicValuesComplianceChecker'.
+src/services/communityContentModerator.ts(660,3): error TS2484: Export declaration conflicts with exported declaration of 'IslamicValuesComplianceChecker'.
+src/services/communityContentModerator.ts(661,3): error TS2323: Cannot redeclare exported variable 'UserReputationSystem'.
+src/services/communityContentModerator.ts(661,3): error TS2484: Export declaration conflicts with exported declaration of 'UserReputationSystem'.
+src/services/communityContentModerator.ts(662,3): error TS2323: Cannot redeclare exported variable 'ContentQualityValidator'.
+src/services/communityContentModerator.ts(662,3): error TS2484: Export declaration conflicts with exported declaration of 'ContentQualityValidator'.
+src/services/indexedDB.ts(102,33): error TS2339: Property 'open' does not exist on type 'IndexedDBService'.
+src/services/indexedDB.ts(115,34): error TS7006: Parameter 'event' implicitly has an 'any' type.
+src/services/islamicContentMonitor.ts(9,1): error TS6192: All imports in import declaration are unused.
+src/services/islamicContentMonitor.ts(46,14): error TS2323: Cannot redeclare exported variable 'ContentChangeDetector'.
+src/services/islamicContentMonitor.ts(127,14): error TS2323: Cannot redeclare exported variable 'AutomatedCorrectionSystem'.
+src/services/islamicContentMonitor.ts(143,10): error TS6133: 'match' is declared but its value is never read.
+src/services/islamicContentMonitor.ts(143,17): error TS6133: 'prefix' is declared but its value is never read.
+src/services/islamicContentMonitor.ts(308,14): error TS2323: Cannot redeclare exported variable 'QualityMetricsTracker'.
+src/services/islamicContentMonitor.ts(510,42): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<void>'?
+src/services/islamicContentMonitor.ts(626,3): error TS2323: Cannot redeclare exported variable 'ContentChangeDetector'.
+src/services/islamicContentMonitor.ts(626,3): error TS2484: Export declaration conflicts with exported declaration of 'ContentChangeDetector'.
+src/services/islamicContentMonitor.ts(627,3): error TS2323: Cannot redeclare exported variable 'AutomatedCorrectionSystem'.
+src/services/islamicContentMonitor.ts(627,3): error TS2484: Export declaration conflicts with exported declaration of 'AutomatedCorrectionSystem'.
+src/services/islamicContentMonitor.ts(628,3): error TS2323: Cannot redeclare exported variable 'QualityMetricsTracker'.
+src/services/islamicContentMonitor.ts(628,3): error TS2484: Export declaration conflicts with exported declaration of 'QualityMetricsTracker'.
+src/services/islamicContentValidationGuardian.ts(17,16): error TS6133: 'Surah' is declared but its value is never read.
+src/services/islamicContentValidationGuardian.ts(534,20): error TS6133: 'BIBLICAL_FORMAT' is declared but its value is never read.
+src/services/islamicContentValidationGuardian.ts(551,44): error TS6133: 'index' is declared but its value is never read.
+src/services/islamicContentValidationGuardian.ts(598,8): error TS6133: 'match' is declared but its value is never read.
+src/services/islamicContentValidationGuardian.ts(598,15): error TS6133: 'prefix' is declared but its value is never read.
+src/services/islamicContentValidationGuardian.ts(621,43): error TS6133: 'issues' is declared but its value is never read.
+src/services/islamicTypographyStandards.ts(73,14): error TS2323: Cannot redeclare exported variable 'ArabicTypographyValidator'.
+src/services/islamicTypographyStandards.ts(194,14): error TS2323: Cannot redeclare exported variable 'VisualPresentationValidator'.
+src/services/islamicTypographyStandards.ts(195,20): error TS6133: 'ISLAMIC_COLOR_PALETTE' is declared but its value is never read.
+src/services/islamicTypographyStandards.ts(347,14): error TS2323: Cannot redeclare exported variable 'AccessibilityComplianceChecker'.
+src/services/islamicTypographyStandards.ts(422,14): error TS2323: Cannot redeclare exported variable 'LayoutOptimizer'.
+src/services/islamicTypographyStandards.ts(746,3): error TS2323: Cannot redeclare exported variable 'ArabicTypographyValidator'.
+src/services/islamicTypographyStandards.ts(746,3): error TS2484: Export declaration conflicts with exported declaration of 'ArabicTypographyValidator'.
+src/services/islamicTypographyStandards.ts(747,3): error TS2323: Cannot redeclare exported variable 'VisualPresentationValidator'.
+src/services/islamicTypographyStandards.ts(747,3): error TS2484: Export declaration conflicts with exported declaration of 'VisualPresentationValidator'.
+src/services/islamicTypographyStandards.ts(748,3): error TS2323: Cannot redeclare exported variable 'AccessibilityComplianceChecker'.
+src/services/islamicTypographyStandards.ts(748,3): error TS2484: Export declaration conflicts with exported declaration of 'AccessibilityComplianceChecker'.
+src/services/islamicTypographyStandards.ts(749,3): error TS2323: Cannot redeclare exported variable 'LayoutOptimizer'.
+src/services/islamicTypographyStandards.ts(749,3): error TS2484: Export declaration conflicts with exported declaration of 'LayoutOptimizer'.
+src/services/mlModels.ts(6,10): error TS6133: 'UserBehaviorPrediction' is declared but its value is never read.
+src/services/mlModels.ts(51,14): error TS2323: Cannot redeclare exported variable 'MemorizationPatternModel'.
+src/services/mlModels.ts(52,11): error TS6133: 'model' is declared but its value is never read.
+src/services/mlModels.ts(53,11): error TS6133: 'isTraining' is declared but its value is never read.
+src/services/mlModels.ts(241,7): error TS2322: Type '"lstm"' is not assignable to type '"neural_network" | "decision_tree" | "collaborative_filtering" | "time_series" | "pattern_matching"'.
+src/services/mlModels.ts(264,14): error TS2323: Cannot redeclare exported variable 'ReadingSpeedOptimizationModel'.
+src/services/mlModels.ts(265,11): error TS6133: 'model' is declared but its value is never read.
+src/services/mlModels.ts(266,11): error TS6133: 'accuracy' is declared but its value is never read.
+src/services/mlModels.ts(321,46): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/services/mlModels.ts(321,49): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/services/mlModels.ts(399,14): error TS2323: Cannot redeclare exported variable 'EngagementPredictionModel'.
+src/services/mlModels.ts(400,11): error TS6133: 'accuracy' is declared but its value is never read.
+src/services/mlModels.ts(455,46): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/services/mlModels.ts(455,49): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/services/mlModels.ts(500,43): error TS6133: 'prediction' is declared but its value is never read.
+src/services/mlModels.ts(565,14): error TS2323: Cannot redeclare exported variable 'RamadanOptimizationModel'.
+src/services/mlModels.ts(751,3): error TS2323: Cannot redeclare exported variable 'MemorizationPatternModel'.
+src/services/mlModels.ts(751,3): error TS2484: Export declaration conflicts with exported declaration of 'MemorizationPatternModel'.
+src/services/mlModels.ts(752,3): error TS2323: Cannot redeclare exported variable 'ReadingSpeedOptimizationModel'.
+src/services/mlModels.ts(752,3): error TS2484: Export declaration conflicts with exported declaration of 'ReadingSpeedOptimizationModel'.
+src/services/mlModels.ts(753,3): error TS2323: Cannot redeclare exported variable 'EngagementPredictionModel'.
+src/services/mlModels.ts(753,3): error TS2484: Export declaration conflicts with exported declaration of 'EngagementPredictionModel'.
+src/services/mlModels.ts(754,3): error TS2323: Cannot redeclare exported variable 'RamadanOptimizationModel'.
+src/services/mlModels.ts(754,3): error TS2484: Export declaration conflicts with exported declaration of 'RamadanOptimizationModel'.
+src/services/predictiveEnhancementIntegration.ts(10,3): error TS6133: 'MemorizationPatternModel' is declared but its value is never read.
+src/services/predictiveEnhancementIntegration.ts(11,3): error TS6133: 'ReadingSpeedOptimizationModel' is declared but its value is never read.
+src/services/predictiveEnhancementIntegration.ts(12,3): error TS6133: 'EngagementPredictionModel' is declared but its value is never read.
+src/services/predictiveEnhancementIntegration.ts(13,3): error TS6133: 'RamadanOptimizationModel' is declared but its value is never read.
+src/services/predictiveEnhancementIntegration.ts(54,11): error TS6133: 'integrationStartTime' is declared but its value is never read.
+src/services/predictiveEnhancementIntegration.ts(77,13): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(114,33): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(120,15): error TS6133: 'enhancedPrediction' is declared but its value is never read.
+src/services/predictiveEnhancementIntegration.ts(153,28): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(159,9): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(173,30): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(179,15): error TS6133: 'enhancedPersona' is declared but its value is never read.
+src/services/predictiveEnhancementIntegration.ts(206,11): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(210,11): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(214,11): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(218,11): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(223,7): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(227,7): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(232,7): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(236,7): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(254,12): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(260,15): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(267,32): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(276,11): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(298,11): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(303,11): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(310,18): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(311,23): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(312,21): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(313,23): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(391,27): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(392,27): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(393,25): error TS2571: Object is of type 'unknown'.
+src/services/predictiveEnhancementIntegration.ts(479,28): error TS2571: Object is of type 'unknown'.
+src/services/uptimeMonitor.ts(329,11): error TS6133: 'allowedDowntimeMinutes' is declared but its value is never read.
+src/services/uptimeMonitor.ts(452,50): error TS7006: Parameter 'status' implicitly has an 'any' type.
+src/stores/analyticsStore.ts(1011,15): error TS7034: Variable 'improvementAreas' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/analyticsStore.ts(1016,13): error TS6133: 'state' is declared but its value is never read.
+src/stores/analyticsStore.ts(1022,13): error TS7005: Variable 'improvementAreas' implicitly has an 'any[]' type.
+src/stores/analyticsStore.ts(1069,13): error TS6133: 'state' is declared but its value is never read.
+src/stores/analyticsStore.ts(1178,15): error TS6133: 'correlationInsights' is declared but its value is never read.
+src/stores/analyticsStore.ts(1364,15): error TS6133: 'weeklyInteractions' is declared but its value is never read.
+src/stores/audioNavigationStore.ts(113,24): error TS2339: Property 'handleNavigationAction' does not exist on type 'AudioNavigationState'.
+src/stores/audioNavigationStore.ts(136,41): error TS2339: Property 'handleNavigationAction' does not exist on type 'AudioNavigationState'.
+src/stores/audioNavigationStore.ts(235,22): error TS7006: Parameter 'error' implicitly has an 'any' type.
+src/stores/audioPlayerStore.ts(223,3): error TS2554: Expected 1 arguments, but got 2.
+src/stores/audioPlayerStore.ts(223,6): error TS7031: Binding element 'speed' implicitly has an 'any' type.
+src/stores/audioPlayerStore.ts(223,13): error TS7031: Binding element 'volume' implicitly has an 'any' type.
+src/stores/audioQueueStore.ts(294,5): error TS2554: Expected 1 arguments, but got 2.
+src/stores/audioQueueStore.ts(294,6): error TS7006: Parameter 'currentAudio' implicitly has an 'any' type.
+src/stores/audioQueueStore.ts(294,20): error TS7006: Parameter 'previousAudio' implicitly has an 'any' type.
+src/stores/audioSettingsStore.ts(49,11): error TS6133: 'get' is declared but its value is never read.
+src/stores/audioStore.backup.ts(667,15): error TS2345: Argument of type 'number | null' is not assignable to parameter of type 'number'.
+  Type 'null' is not assignable to type 'number'.
+src/stores/audioStore.ts(117,56): error TS6133: 'set' is declared but its value is never read.
+src/stores/audioStore.ts(118,9): error TS6133: 'playerStore' is declared but its value is never read.
+src/stores/audioStore.ts(119,9): error TS6133: 'queueStore' is declared but its value is never read.
+src/stores/audioStore.ts(120,9): error TS6133: 'settingsStore' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(16,3): error TS6133: 'IslamicLearningPattern' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(266,15): error TS6133: 'readingConfig' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(275,15): error TS6133: 'engagementConfig' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(319,35): error TS2339: Property 'getCurrentIslamicDate' does not exist on type 'EnhancedPredictiveState'.
+src/stores/enhancedPredictiveStore.ts(360,49): error TS2339: Property 'completionRate' does not exist on type 'ProgressState'.
+src/stores/enhancedPredictiveStore.ts(365,46): error TS2339: Property 'getCurrentIslamicEvents' does not exist on type 'EnhancedPredictiveState'.
+src/stores/enhancedPredictiveStore.ts(367,42): error TS2339: Property 'energyLevel' does not exist on type '{ recentInteractions: UserInteraction[]; currentProgress: ProgressState; timestamp: number; }'.
+src/stores/enhancedPredictiveStore.ts(368,50): error TS2339: Property 'spiritualMotivation' does not exist on type '{ recentInteractions: UserInteraction[]; currentProgress: ProgressState; timestamp: number; }'.
+src/stores/enhancedPredictiveStore.ts(414,17): error TS2322: Type 'string | number' is not assignable to type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/stores/enhancedPredictiveStore.ts(416,42): error TS2339: Property 'energyLevel' does not exist on type '{ recentInteractions: UserInteraction[]; currentProgress: ProgressState; timestamp: number; }'.
+src/stores/enhancedPredictiveStore.ts(453,50): error TS2339: Property 'readingSpeed' does not exist on type '{ recentInteractions: UserInteraction[]; currentProgress: ProgressState; timestamp: number; }'.
+src/stores/enhancedPredictiveStore.ts(454,49): error TS2339: Property 'comprehensionScore' does not exist on type '{ recentInteractions: UserInteraction[]; currentProgress: ProgressState; timestamp: number; }'.
+src/stores/enhancedPredictiveStore.ts(455,48): error TS2339: Property 'arabicProficiency' does not exist on type '{ recentInteractions: UserInteraction[]; currentProgress: ProgressState; timestamp: number; }'.
+src/stores/enhancedPredictiveStore.ts(456,52): error TS2339: Property 'visualProcessingSpeed' does not exist on type '{ recentInteractions: UserInteraction[]; currentProgress: ProgressState; timestamp: number; }'.
+src/stores/enhancedPredictiveStore.ts(458,50): error TS2339: Property 'preferredDifficulty' does not exist on type '{ recentInteractions: UserInteraction[]; currentProgress: ProgressState; timestamp: number; }'.
+src/stores/enhancedPredictiveStore.ts(512,15): error TS6133: 'islamicTimeFactors' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(565,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(572,15): error TS6133: 'progressState' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(650,40): error TS6133: 'userId' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(651,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(733,47): error TS6133: 'userId' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(734,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(825,44): error TS6133: 'userId' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(831,34): error TS2339: Property 'getCurrentRamadanDay' does not exist on type 'EnhancedPredictiveState'.
+src/stores/enhancedPredictiveStore.ts(843,35): error TS2339: Property 'calculateTimeUntilIftar' does not exist on type 'EnhancedPredictiveState'.
+src/stores/enhancedPredictiveStore.ts(844,35): error TS2339: Property 'calculateTimeUntilSuhur' does not exist on type 'EnhancedPredictiveState'.
+src/stores/enhancedPredictiveStore.ts(845,32): error TS2339: Property 'estimateCurrentEnergyLevel' does not exist on type 'EnhancedPredictiveState'.
+src/stores/enhancedPredictiveStore.ts(930,38): error TS6133: 'trainingData' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(936,36): error TS6133: 'trainingData' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(987,35): error TS6133: 'adaptationType' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(1051,15): error TS6133: 'minute' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(1131,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/enhancedPredictiveStore.ts(1238,35): error TS2339: Property 'getCurrentIslamicDate' does not exist on type 'EnhancedPredictiveState'.
+src/stores/islamicContentQualityStore.ts(1009,5): error TS2739: Type '{ description: string; islamicPerspective: string; implementation: string[]; }' is missing the following properties from type '{ description: string; islamicPerspective: string; implementation: string[]; assistiveTechnology: string[]; communityBenefit: string; }': assistiveTechnology, communityBenefit
+src/stores/islamicContentQualityStore.ts(1014,5): error TS2741: Property 'continuousMonitoring' is missing in type '{ level: "aa"; islamicPrinciple: string; verification: string[]; }' but required in type '{ level: "aa" | "aaa" | "universal"; islamicPrinciple: string; verification: string[]; continuousMonitoring: boolean; }'.
+src/stores/islamicContentQualityStore.ts(1025,5): error TS2739: Type '{ description: string; islamicPerspective: string; implementation: string[]; }' is missing the following properties from type '{ description: string; islamicPerspective: string; implementation: string[]; assistiveTechnology: string[]; communityBenefit: string; }': assistiveTechnology, communityBenefit
+src/stores/islamicContentQualityStore.ts(1030,5): error TS2741: Property 'continuousMonitoring' is missing in type '{ level: "aa"; islamicPrinciple: string; verification: string[]; }' but required in type '{ level: "aa" | "aaa" | "universal"; islamicPrinciple: string; verification: string[]; continuousMonitoring: boolean; }'.
+src/stores/islamicContentQualityStore.ts(1275,15): error TS2739: Type '{ textAccuracy: number; diacriticalMarks: number; fontRendering: number; layoutCompliance: number; readability: number; }' is missing the following properties from type '{ textAccuracy: number; diacriticalMarks: number; fontRendering: number; layoutCompliance: number; readability: number; mushafCompliance: number; characterIntegrity: number; uthmaniScriptAccuracy: number; }': mushafCompliance, characterIntegrity, uthmaniScriptAccuracy
+src/stores/islamicContentQualityStore.ts(1288,25): error TS2345: Argument of type '{ type: "incorrect_character"; severity: "high"; location: { character: number; }; description: string; suggestion: string; }' is not assignable to parameter of type '{ type: "missing_diacritics" | "incorrect_character" | "layout_issue" | "font_problem" | "mushaf_deviation" | "encoding_corruption" | "tajweed_marks"; severity: "medium" | "low" | "high" | "critical"; ... 4 more ...; mushafReference?: string | undefined; }'.
+  Property 'autoFixable' is missing in type '{ type: "incorrect_character"; severity: "high"; location: { character: number; }; description: string; suggestion: string; }' but required in type '{ type: "missing_diacritics" | "incorrect_character" | "layout_issue" | "font_problem" | "mushaf_deviation" | "encoding_corruption" | "tajweed_marks"; severity: "medium" | "low" | "high" | "critical"; ... 4 more ...; mushafReference?: string | undefined; }'.
+src/stores/islamicContentQualityStore.ts(1300,23): error TS2345: Argument of type '{ type: "missing_diacritics"; severity: "medium"; location: {}; description: string; suggestion: string; }' is not assignable to parameter of type '{ type: "missing_diacritics" | "incorrect_character" | "layout_issue" | "font_problem" | "mushaf_deviation" | "encoding_corruption" | "tajweed_marks"; severity: "medium" | "low" | "high" | "critical"; ... 4 more ...; mushafReference?: string | undefined; }'.
+  Property 'autoFixable' is missing in type '{ type: "missing_diacritics"; severity: "medium"; location: {}; description: string; suggestion: string; }' but required in type '{ type: "missing_diacritics" | "incorrect_character" | "layout_issue" | "font_problem" | "mushaf_deviation" | "encoding_corruption" | "tajweed_marks"; severity: "medium" | "low" | "high" | "critical"; ... 4 more ...; mushafReference?: string | undefined; }'.
+src/stores/islamicContentQualityStore.ts(1311,23): error TS2345: Argument of type '{ type: "layout_issue"; severity: "medium"; location: {}; description: string; suggestion: string; }' is not assignable to parameter of type '{ type: "missing_diacritics" | "incorrect_character" | "layout_issue" | "font_problem" | "mushaf_deviation" | "encoding_corruption" | "tajweed_marks"; severity: "medium" | "low" | "high" | "critical"; ... 4 more ...; mushafReference?: string | undefined; }'.
+  Property 'autoFixable' is missing in type '{ type: "layout_issue"; severity: "medium"; location: {}; description: string; suggestion: string; }' but required in type '{ type: "missing_diacritics" | "incorrect_character" | "layout_issue" | "font_problem" | "mushaf_deviation" | "encoding_corruption" | "tajweed_marks"; severity: "medium" | "low" | "high" | "critical"; ... 4 more ...; mushafReference?: string | undefined; }'.
+src/stores/islamicContentQualityStore.ts(1401,11): error TS2739: Type '{ languageRespect: boolean; culturalContext: boolean; religiousTerminology: boolean; genderSensitivity: boolean; regionalVariations: boolean; }' is missing the following properties from type '{ languageRespect: boolean; culturalContext: boolean; religiousTerminology: boolean; genderSensitivity: boolean; regionalVariations: boolean; inclusiveLanguage: boolean; respectfulAddressing: boolean; interfaithSensitivity: boolean; diverseMuslimCommunities: boolean; }': inclusiveLanguage, respectfulAddressing, interfaithSensitivity, diverseMuslimCommunities
+src/stores/islamicContentQualityStore.ts(1524,15): error TS7034: Variable 'improvements' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/islamicContentQualityStore.ts(1532,43): error TS2339: Property 'getIslamicJustification' does not exist on type 'IslamicContentQualityState'.
+src/stores/islamicContentQualityStore.ts(1537,16): error TS7005: Variable 'improvements' implicitly has an 'any[]' type.
+src/stores/islamicContentQualityStore.ts(1541,38): error TS6133: 'contentId' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(1579,47): error TS6133: 'context' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(1594,15): error TS7034: Variable 'terms' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/islamicContentQualityStore.ts(1611,32): error TS2339: Property 'suggestion' does not exist on type '{ status: string; explanation: string; } | { status: string; suggestion: string; explanation: string; } | { status: string; suggestion: string; explanation: string; } | { status: string; suggestion: string; explanation: string; } | { ...; }'.
+  Property 'suggestion' does not exist on type '{ status: string; explanation: string; }'.
+src/stores/islamicContentQualityStore.ts(1617,16): error TS7005: Variable 'terms' implicitly has an 'any[]' type.
+src/stores/islamicContentQualityStore.ts(1621,7): error TS2322: Type '(reference: string) => boolean' is not assignable to type '(reference: string) => { valid: boolean; standardized: string; suggestions?: string[] | undefined; }'.
+  Type 'boolean' is not assignable to type '{ valid: boolean; standardized: string; suggestions?: string[] | undefined; }'.
+src/stores/islamicContentQualityStore.ts(1627,7): error TS2322: Type '(reference: string) => boolean' is not assignable to type '(reference: string) => Promise<{ valid: boolean; authenticated: boolean; grade?: string | undefined; collection?: string | undefined; alternatives?: string[] | undefined; }>'.
+  Type 'boolean' is not assignable to type 'Promise<{ valid: boolean; authenticated: boolean; grade?: string | undefined; collection?: string | undefined; alternatives?: string[] | undefined; }>'.
+src/stores/islamicContentQualityStore.ts(1648,7): error TS2322: Type '(text: string) => Promise<{ char: string; valid: boolean; suggestion: any; mushafReference: string | undefined; confidence: number; }[]>' is not assignable to type '(text: string) => { char: string; valid: boolean; suggestion?: string | undefined; mushafReference?: string | undefined; confidence: number; }[]'.
+  Type 'Promise<{ char: string; valid: boolean; suggestion: any; mushafReference: string | undefined; confidence: number; }[]>' is missing the following properties from type '{ char: string; valid: boolean; suggestion?: string | undefined; mushafReference?: string | undefined; confidence: number; }[]': length, pop, push, concat, and 28 more.
+src/stores/islamicContentQualityStore.ts(1674,22): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ ي: string; ك: string; ة: string; ء: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ ي: string; ك: string; ة: string; ء: string; }'.
+src/stores/islamicContentQualityStore.ts(1675,26): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ ي: string; ك: string; ة: string; ء: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ ي: string; ك: string; ة: string; ء: string; }'.
+src/stores/islamicContentQualityStore.ts(1676,63): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ ي: string; ك: string; ة: string; ء: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ ي: string; ك: string; ة: string; ء: string; }'.
+src/stores/islamicContentQualityStore.ts(1707,15): error TS7034: Variable 'missingMarks' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/islamicContentQualityStore.ts(1718,45): error TS2339: Property 'predictRequiredDiacritics' does not exist on type 'IslamicContentQualityState'.
+src/stores/islamicContentQualityStore.ts(1747,11): error TS7005: Variable 'missingMarks' implicitly has an 'any[]' type.
+src/stores/islamicContentQualityStore.ts(1751,7): error TS2322: Type '(text: string) => { compliance: number; issues: string[]; }' is not assignable to type '(text: string) => { compliance: number; issues: string[]; characterByCharacterAnalysis: { position: number; character: string; valid: boolean; expected?: string | undefined; }[]; }'.
+  Property 'characterByCharacterAnalysis' is missing in type '{ compliance: number; issues: string[]; }' but required in type '{ compliance: number; issues: string[]; characterByCharacterAnalysis: { position: number; character: string; valid: boolean; expected?: string | undefined; }[]; }'.
+src/stores/islamicContentQualityStore.ts(1770,15): error TS7034: Variable 'terms' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/islamicContentQualityStore.ts(1797,16): error TS7005: Variable 'terms' implicitly has an 'any[]' type.
+src/stores/islamicContentQualityStore.ts(1800,7): error TS2322: Type '(text: string) => { appropriate: boolean; suggestions: any[]; }' is not assignable to type '(text: string) => { appropriate: boolean; suggestions: string[]; inclusivityScore: number; }'.
+  Property 'inclusivityScore' is missing in type '{ appropriate: boolean; suggestions: any[]; }' but required in type '{ appropriate: boolean; suggestions: string[]; inclusivityScore: number; }'.
+src/stores/islamicContentQualityStore.ts(1801,15): error TS7034: Variable 'suggestions' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/islamicContentQualityStore.ts(1821,31): error TS7005: Variable 'suggestions' implicitly has an 'any[]' type.
+src/stores/islamicContentQualityStore.ts(1834,7): error TS2322: Type '(element: any) => boolean' is not assignable to type '(element: any) => { compatible: boolean; improvements: string[]; accessibility_score: number; }'.
+  Type 'boolean' is not assignable to type '{ compatible: boolean; improvements: string[]; accessibility_score: number; }'.
+src/stores/islamicContentQualityStore.ts(1834,43): error TS6133: 'element' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(1839,7): error TS2322: Type '(component: string) => boolean' is not assignable to type '(component: string) => { navigable: boolean; issues: string[]; recommendations: string[]; }'.
+  Type 'boolean' is not assignable to type '{ navigable: boolean; issues: string[]; recommendations: string[]; }'.
+src/stores/islamicContentQualityStore.ts(1839,33): error TS6133: 'component' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(1846,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(2006,44): error TS2339: Property 'suggestDiacriticCorrections' does not exist on type 'IslamicContentQualityState'.
+src/stores/islamicContentQualityStore.ts(2010,39): error TS2551: Property 'normalizeArabicCharacters' does not exist on type 'IslamicContentQualityState'. Did you mean 'validateArabicCharacters'?
+src/stores/islamicContentQualityStore.ts(2083,39): error TS6133: 'audioFile' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(2191,35): error TS6133: 'letter' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(2191,35): error TS7006: Parameter 'letter' implicitly has an 'any' type.
+src/stores/islamicContentQualityStore.ts(2191,43): error TS7006: Parameter 'word' implicitly has an 'any' type.
+src/stores/islamicContentQualityStore.ts(2191,49): error TS7006: Parameter 'position' implicitly has an 'any' type.
+src/stores/islamicContentQualityStore.ts(2207,37): error TS6133: 'text' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(2207,37): error TS7006: Parameter 'text' implicitly has an 'any' type.
+src/stores/islamicContentQualityStore.ts(2208,15): error TS7034: Variable 'corrections' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/islamicContentQualityStore.ts(2210,16): error TS7005: Variable 'corrections' implicitly has an 'any[]' type.
+src/stores/islamicContentQualityStore.ts(2213,35): error TS6133: 'text' is declared but its value is never read.
+src/stores/islamicContentQualityStore.ts(2213,35): error TS7006: Parameter 'text' implicitly has an 'any' type.
+src/stores/islamicContentQualityStore.ts(2214,15): error TS7034: Variable 'corrections' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/islamicContentQualityStore.ts(2216,16): error TS7005: Variable 'corrections' implicitly has an 'any[]' type.
+src/stores/optimizationEngineStore.ts(450,15): error TS2339: Property 'logEnhancement' does not exist on type 'OptimizationEngineState'.
+src/stores/optimizationEngineStore.ts(555,15): error TS2339: Property 'logEnhancement' does not exist on type 'OptimizationEngineState'.
+src/stores/optimizationEngineStore.ts(575,15): error TS2339: Property 'logEnhancement' does not exist on type 'OptimizationEngineState'.
+src/stores/optimizationEngineStore.ts(899,15): error TS2339: Property 'logEnhancement' does not exist on type 'OptimizationEngineState'.
+src/stores/optimizationEngineStore.ts(936,15): error TS2339: Property 'logEnhancement' does not exist on type 'OptimizationEngineState'.
+src/stores/performanceMonitorStore.ts(499,7): error TS2741: Property 'autoImprovement' is missing in type '{ LCP: { target: number; current: number; status: "good"; autoImprovement: { enabled: true; strategies: never[]; lastImprovement: number; }; }; FID: { target: number; current: number; status: "good"; autoImprovement: { ...; }; }; CLS: { ...; }; FCP: { ...; }; TTFB: { ...; }; }' but required in type 'CoreWebVitalsTarget'.
+src/stores/performanceMonitorStore.ts(647,32): error TS2339: Property 'processingStart' does not exist on type 'PerformanceEntry'.
+src/stores/performanceMonitorStore.ts(666,28): error TS2339: Property 'hadRecentInput' does not exist on type 'PerformanceEntry'.
+src/stores/performanceMonitorStore.ts(667,37): error TS2339: Property 'value' does not exist on type 'PerformanceEntry'.
+src/stores/performanceMonitorStore.ts(941,108): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(942,108): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(943,108): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(944,108): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(945,111): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(952,45): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(979,51): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(989,45): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(994,17): error TS6133: 'scheduleTask' is declared but its value is never read.
+src/stores/performanceMonitorStore.ts(1017,45): error TS2339: Property 'oninput' does not exist on type 'Element'.
+src/stores/performanceMonitorStore.ts(1019,23): error TS2339: Property 'oninput' does not exist on type 'Element'.
+src/stores/performanceMonitorStore.ts(1030,51): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(1040,45): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(1081,51): error TS2339: Property 'autoImprovement' does not exist on type '{ target: number; current: number; status: "excellent" | "good" | "needs_improvement" | "poor"; }'.
+src/stores/performanceMonitorStore.ts(1090,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/performanceMonitorStore.ts(1122,57): error TS2349: This expression is not callable.
+  Type 'String' has no call signatures.
+src/stores/performanceMonitorStore.ts(1127,15): error TS6133: 'loadTime' is declared but its value is never read.
+src/stores/performanceMonitorStore.ts(1196,56): error TS2349: This expression is not callable.
+  Type 'String' has no call signatures.
+src/stores/performanceMonitorStore.ts(1218,33): error TS6133: 'adaptiveQuality' is declared but its value is never read.
+src/stores/performanceMonitorStore.ts(1332,22): error TS2353: Object literal may only specify known properties, and 'operation' does not exist in type '{ page?: string | undefined; component?: string | undefined; userAgent?: string | undefined; networkType?: string | undefined; deviceType?: "mobile" | "tablet" | "desktop" | undefined; metadata?: Record<...> | undefined; }'.
+src/stores/performanceMonitorStore.ts(1368,22): error TS2353: Object literal may only specify known properties, and 'textLength' does not exist in type '{ page?: string | undefined; component?: string | undefined; userAgent?: string | undefined; networkType?: string | undefined; deviceType?: "mobile" | "tablet" | "desktop" | undefined; metadata?: Record<...> | undefined; }'.
+src/stores/performanceMonitorStore.ts(1404,24): error TS2353: Object literal may only specify known properties, and 'category' does not exist in type '{ page?: string | undefined; component?: string | undefined; userAgent?: string | undefined; networkType?: string | undefined; deviceType?: "mobile" | "tablet" | "desktop" | undefined; metadata?: Record<...> | undefined; }'.
+src/stores/performanceMonitorStore.ts(1479,53): error TS2339: Property 'navigationStart' does not exist on type 'PerformanceNavigationTiming'.
+src/stores/performanceMonitorStore.ts(1601,15): error TS7034: Variable 'bottlenecks' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/stores/performanceMonitorStore.ts(1623,31): error TS2339: Property 'getOptimizationSuggestion' does not exist on type 'PerformanceMonitorState'.
+src/stores/performanceMonitorStore.ts(1628,28): error TS7005: Variable 'bottlenecks' implicitly has an 'any[]' type.
+src/stores/performanceMonitorStore.ts(1765,37): error TS2339: Property 'getRecommendedActions' does not exist on type 'PerformanceMonitorState'.
+src/stores/performanceMonitorStore.ts(1767,31): error TS2339: Property 'canAutoResolve' does not exist on type 'PerformanceMonitorState'.
+src/stores/performanceMonitorStore.ts(1768,27): error TS2339: Property 'getAutoResolutionAction' does not exist on type 'PerformanceMonitorState'.
+src/stores/performanceMonitorStore.ts(1990,22): error TS2353: Object literal may only specify known properties, and 'endpoint' does not exist in type '{ page?: string | undefined; component?: string | undefined; userAgent?: string | undefined; networkType?: string | undefined; deviceType?: "mobile" | "tablet" | "desktop" | undefined; metadata?: Record<...> | undefined; }'.
+src/stores/performanceMonitorStore.ts(2007,22): error TS2353: Object literal may only specify known properties, and 'reciterId' does not exist in type '{ page?: string | undefined; component?: string | undefined; userAgent?: string | undefined; networkType?: string | undefined; deviceType?: "mobile" | "tablet" | "desktop" | undefined; metadata?: Record<...> | undefined; }'.
+src/stores/performanceMonitorStore.ts(2093,72): error TS2339: Property 'navigationStart' does not exist on type 'PerformanceNavigationTiming'.
+src/stores/performanceMonitorStore.ts(2174,53): error TS6133: 'metric' is declared but its value is never read.
+src/stores/performanceMonitorStore.ts(2174,69): error TS6133: 'value' is declared but its value is never read.
+src/stores/performanceMonitorStore.ts(2184,47): error TS6133: 'severity' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(401,17): error TS6133: 'integrator' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(411,35): error TS6133: 'userId' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(411,43): error TS6133: 'context' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(519,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(609,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(737,42): error TS2339: Property 'detectIslamicSeasonality' does not exist on type 'PredictiveEnhancementState'.
+src/stores/predictiveEnhancementStore.ts(751,33): error TS2339: Property 'generateFuturePredictions' does not exist on type 'PredictiveEnhancementState'.
+src/stores/predictiveEnhancementStore.ts(753,39): error TS2339: Property 'getTrendRecommendations' does not exist on type 'PredictiveEnhancementState'.
+src/stores/predictiveEnhancementStore.ts(770,15): error TS6133: 'analyticsState' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(827,34): error TS6133: 'userId' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(964,39): error TS2339: Property 'calculateRamadanDistance' does not exist on type 'PredictiveEnhancementState'.
+src/stores/predictiveEnhancementStore.ts(1031,46): error TS6133: 'location' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1151,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1173,39): error TS2339: Property 'getIslamicPeriod' does not exist on type 'PredictiveEnhancementState'.
+src/stores/predictiveEnhancementStore.ts(1195,23): error TS2339: Property 'getPersonalizedUI' does not exist on type 'PredictiveEnhancementState'.
+src/stores/predictiveEnhancementStore.ts(1196,28): error TS2339: Property 'getPersonalizedContent' does not exist on type 'PredictiveEnhancementState'.
+src/stores/predictiveEnhancementStore.ts(1197,29): error TS2339: Property 'getPersonalizedFeatures' does not exist on type 'PredictiveEnhancementState'.
+src/stores/predictiveEnhancementStore.ts(1241,15): error TS6133: 'state' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1277,15): error TS6133: 'analyticsState' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1310,34): error TS6133: 'dataPoints' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1310,34): error TS7006: Parameter 'dataPoints' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1320,35): error TS6133: 'dataPoints' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1320,35): error TS7006: Parameter 'dataPoints' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1320,47): error TS6133: 'timeframe' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1320,47): error TS7006: Parameter 'timeframe' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1336,33): error TS7006: Parameter 'direction' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1336,44): error TS6133: 'changeRate' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1336,44): error TS7006: Parameter 'changeRate' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1353,34): error TS7006: Parameter 'currentDate' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1362,26): error TS6133: 'islamicDate' is declared but its value is never read.
+src/stores/predictiveEnhancementStore.ts(1362,26): error TS7006: Parameter 'islamicDate' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1367,27): error TS7006: Parameter 'userPersona' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1383,32): error TS7006: Parameter 'userPersona' implicitly has an 'any' type.
+src/stores/predictiveEnhancementStore.ts(1397,33): error TS7006: Parameter 'userPersona' implicitly has an 'any' type.
+src/stores/progressStore.ts(129,7): error TS2741: Property 'uiLanguage' is missing in type '{ preferredReciter: string; playbackSpeed: number; showTransliteration: true; showTranslation: true; translationLanguage: string; notificationTime: string; defaultReadingMode: "learning"; darkMode: false; animationsEnabled: true; }' but required in type 'UserPreferences'.
+src/tests/automated-testing-monitor.ts(12,1): error TS6192: All imports in import declaration are unused.
+src/utils/arabicTextOptimization.ts(83,11): error TS6133: 'fontObserver' is declared but its value is never read.
+src/utils/arabicTextOptimization.ts(538,11): error TS6133: 'textWidth' is declared but its value is never read.
+src/utils/audioOptimization.ts(298,11): error TS6133: 'quality' is declared but its value is never read.
+src/utils/audioOptimization.ts(354,7): error TS2322: Type '{ readonly bitrate: 64; readonly format: "mp3"; }' is not assignable to type '{ readonly bitrate: 128; readonly format: "mp3"; }'.
+  Types of property 'bitrate' are incompatible.
+    Type '64' is not assignable to type '128'.
+src/utils/audioOptimization.ts(360,9): error TS2322: Type '{ readonly bitrate: 64; readonly format: "mp3"; }' is not assignable to type '{ readonly bitrate: 128; readonly format: "mp3"; }'.
+  Types of property 'bitrate' are incompatible.
+    Type '64' is not assignable to type '128'.
+src/utils/audioOptimization.ts(363,13): error TS2322: Type '{ readonly bitrate: 96; readonly format: "mp3"; }' is not assignable to type '{ readonly bitrate: 128; readonly format: "mp3"; }'.
+  Types of property 'bitrate' are incompatible.
+    Type '96' is not assignable to type '128'.
+src/utils/audioOptimization.ts(364,13): error TS2322: Type '{ readonly bitrate: 64; readonly format: "mp3"; }' is not assignable to type '{ readonly bitrate: 128; readonly format: "mp3"; }'.
+  Types of property 'bitrate' are incompatible.
+    Type '64' is not assignable to type '128'.
+src/utils/audioOptimization.ts(369,13): error TS2322: Type '{ readonly bitrate: 96; readonly format: "mp3"; }' is not assignable to type '{ readonly bitrate: 128; readonly format: "mp3"; }'.
+  Types of property 'bitrate' are incompatible.
+    Type '96' is not assignable to type '128'.
+src/utils/audioOptimization.ts(532,30): error TS6133: 'audio' is declared but its value is never read.
+src/utils/audioPreloader.ts(53,41): error TS6133: 'reject' is declared but its value is never read.
+src/utils/autoFixSystem.ts(9,16): error TS6133: 'Surah' is declared but its value is never read.
+src/utils/autoFixSystem.ts(9,23): error TS6133: 'Hadith' is declared but its value is never read.
+src/utils/autoFixSystem.ts(9,31): error TS6133: 'Dua' is declared but its value is never read.
+src/utils/autoFixSystem.ts(9,36): error TS6133: 'IslamicContentError' is declared but its value is never read.
+src/utils/autoFixSystem.ts(360,55): error TS6133: 'error' is declared but its value is never read.
+src/utils/autoFixSystem.ts(360,67): error TS6133: 'context' is declared but its value is never read.
+src/utils/autoFixSystem.ts(423,57): error TS6133: 'rootCauses' is declared but its value is never read.
+src/utils/autoFixSystem.ts(525,45): error TS6133: 'context' is declared but its value is never read.
+src/utils/autoFixSystem.ts(533,12): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ islamic_content_integrity_breach: string; arabic_font_corruption: string; api_timeout: string; audio_recitation_failure: string; prayer_time_calculation_error: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ islamic_content_integrity_breach: string; arabic_font_corruption: string; api_timeout: string; audio_recitation_failure: string; prayer_time_calculation_error: string; }'.
+src/utils/autoFixSystem.ts(554,12): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ islamic_content_integrity_breach: string[]; arabic_font_corruption: string[]; api_timeout: string[]; }'.
+  No index signature with a parameter of type 'string' was found on type '{ islamic_content_integrity_breach: string[]; arabic_font_corruption: string[]; api_timeout: string[]; }'.
+src/utils/autoFixSystem.ts(606,11): error TS6133: 'knownVulnerabilities' is declared but its value is never read.
+src/utils/autoFixSystem.ts(1170,11): error TS6133: 'maxHealingAttempts' is declared but its value is never read.
+src/utils/autoFixSystem.ts(1241,46): error TS6133: 'error' is declared but its value is never read.
+src/utils/autoFixSystem.ts(1271,39): error TS6133: 'error' is declared but its value is never read.
+src/utils/autoFixSystem.ts(1311,39): error TS6133: 'error' is declared but its value is never read.
+src/utils/autoFixSystem.ts(1348,40): error TS6133: 'error' is declared but its value is never read.
+src/utils/autoFixSystem.ts(1385,40): error TS6133: 'error' is declared but its value is never read.
+src/utils/autoFixSystem.ts(1572,11): error TS6133: 'criticalCheckInterval' is declared but its value is never read.
+src/utils/autoFixSystem.ts(1614,30): error TS6133: 'index' is declared but its value is never read.
+src/utils/autoFixSystem.ts(2732,14): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(type: keyof DocumentEventMap, listener: (this: Document, ev: Event | ErrorEvent | ProgressEvent<EventTarget> | DragEvent | ... 15 more ... | WheelEvent) => any, options?: boolean | ... 1 more ... | undefined): void', gave the following error.
+    Argument of type '"ayah-interaction"' is not assignable to parameter of type 'keyof DocumentEventMap'.
+  Overload 2 of 2, '(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions | undefined): void', gave the following error.
+    Argument of type '(event: CustomEvent) => void' is not assignable to parameter of type 'EventListenerOrEventListenerObject'.
+      Type '(event: CustomEvent) => void' is not assignable to type 'EventListener'.
+        Types of parameters 'event' and 'evt' are incompatible.
+          Type 'Event' is missing the following properties from type 'CustomEvent<any>': detail, initCustomEvent
+src/utils/autoFixSystem.ts(3089,11): error TS6133: 'setupGlobalErrorHandlers' is declared but its value is never read.
+src/utils/autoFixSystem.ts(3114,29): error TS6133: 'type' is declared but its value is never read.
+src/utils/continuousImprovement.ts(104,39): error TS6133: 'data' is declared but its value is never read.
+src/utils/continuousImprovement.ts(206,32): error TS6133: 'data' is declared but its value is never read.
+src/utils/continuousImprovement.ts(264,38): error TS6133: 'data' is declared but its value is never read.
+src/utils/continuousImprovement.ts(306,30): error TS6133: 'data' is declared but its value is never read.
+src/utils/continuousImprovement.ts(546,11): error TS6133: 'actionQueue' is declared but its value is never read.
+src/utils/continuousImprovement.ts(689,35): error TS6133: 'action' is declared but its value is never read.
+src/utils/continuousImprovement.ts(695,50): error TS6133: 'action' is declared but its value is never read.
+src/utils/continuousImprovement.ts(701,40): error TS6133: 'action' is declared but its value is never read.
+src/utils/continuousImprovement.ts(707,46): error TS6133: 'action' is declared but its value is never read.
+src/utils/continuousImprovementValidator.ts(100,67): error TS2551: Property 'feature' does not exist on type 'FeatureUtilization'. Did you mean 'featureId'?
+src/utils/continuousImprovementValidator.ts(159,40): error TS2345: Argument of type '{ id: string; name: string; type: "performance"; category: "caching"; priority: "medium"; condition: { trigger: string; threshold: number; context: {}; }; action: { type: string; parameters: {}; autoApply: boolean; }; impact: { ...; }; }' is not assignable to parameter of type 'Omit<OptimizationRule, "id" | "successRate" | "lastTriggered">'.
+  Property 'isActive' is missing in type '{ id: string; name: string; type: "performance"; category: "caching"; priority: "medium"; condition: { trigger: string; threshold: number; context: {}; }; action: { type: string; parameters: {}; autoApply: boolean; }; impact: { ...; }; }' but required in type 'Omit<OptimizationRule, "id" | "successRate" | "lastTriggered">'.
+src/utils/continuousImprovementValidator.ts(173,30): error TS2551: Property 'smartCacheStrategies' does not exist on type 'OptimizationEngineState'. Did you mean 'cacheStrategies'?
+src/utils/continuousImprovementValidator.ts(174,71): error TS2551: Property 'smartCacheStrategies' does not exist on type 'OptimizationEngineState'. Did you mean 'cacheStrategies'?
+src/utils/continuousImprovementValidator.ts(206,42): error TS2339: Property 'metrics' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(206,55): error TS7006: Parameter 'm' implicitly has an 'any' type.
+src/utils/continuousImprovementValidator.ts(215,19): error TS2339: Property 'trackCoreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(223,29): error TS2339: Property 'coreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(224,62): error TS2339: Property 'coreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(232,29): error TS2339: Property 'memoryUsage' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(233,47): error TS2339: Property 'memoryUsage' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(258,44): error TS2339: Property 'contentValidations' does not exist on type 'IslamicContentQualityState'.
+src/utils/continuousImprovementValidator.ts(259,9): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/utils/continuousImprovementValidator.ts(269,50): error TS2551: Property 'validateCitationFormat' does not exist on type 'IslamicContentQualityState'. Did you mean 'validateCitation'?
+src/utils/continuousImprovementValidator.ts(278,48): error TS2339: Property 'assessCulturalSensitivity' does not exist on type 'IslamicContentQualityState'.
+src/utils/continuousImprovementValidator.ts(321,38): error TS2339: Property 'identifyFutureNeeds' does not exist on type 'PredictiveEnhancementState'.
+src/utils/continuousImprovementValidator.ts(387,44): error TS2339: Property 'metrics' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(435,24): error TS2551: Property 'addContentRule' does not exist on type 'IslamicContentQualityState'. Did you mean 'contentRules'?
+src/utils/continuousImprovementValidator.ts(436,49): error TS2551: Property 'validateContentCompliance' does not exist on type 'IslamicContentQualityState'. Did you mean 'validateUthmaniCompliance'?
+src/utils/continuousImprovementValidator.ts(480,38): error TS2339: Property 'coreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(481,38): error TS2339: Property 'coreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(482,38): error TS2339: Property 'coreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(493,41): error TS2339: Property 'memoryUsage' does not exist on type 'PerformanceMonitorState'.
+src/utils/continuousImprovementValidator.ts(630,17): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/utils/continuousImprovementValidator.ts(661,24): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/utils/integrationTestRunner.ts(6,1): error TS6133: 'continuousImprovementValidator' is declared but its value is never read.
+src/utils/integrationTestRunner.ts(51,17): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/utils/integrationTestRunner.ts(152,25): error TS2551: Property 'trackPerformanceMetric' does not exist on type 'AnalyticsState'. Did you mean 'trackPerformance'?
+src/utils/integrationTestRunner.ts(235,42): error TS2345: Argument of type '{ id: string; name: string; type: "performance"; category: "caching"; priority: "high"; condition: { trigger: string; threshold: number; context: { timeframe: string; scroll_speed?: undefined; }; }; action: { ...; }; impact: { ...; }; } | { ...; }' is not assignable to parameter of type 'Omit<OptimizationRule, "id" | "successRate" | "lastTriggered">'.
+  Property 'isActive' is missing in type '{ id: string; name: string; type: "performance"; category: "caching"; priority: "high"; condition: { trigger: string; threshold: number; context: { timeframe: string; scroll_speed?: undefined; }; }; action: { ...; }; impact: { ...; }; }' but required in type 'Omit<OptimizationRule, "id" | "successRate" | "lastTriggered">'.
+src/utils/integrationTestRunner.ts(242,30): error TS2551: Property 'applyOptimization' does not exist on type 'OptimizationEngineState'. Did you mean 'autoApplyOptimizations'?
+src/utils/integrationTestRunner.ts(262,41): error TS2551: Property 'smartCacheStrategies' does not exist on type 'OptimizationEngineState'. Did you mean 'cacheStrategies'?
+src/utils/integrationTestRunner.ts(296,19): error TS2339: Property 'trackCoreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(306,25): error TS2339: Property 'generateOptimizationSuggestions' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(308,40): error TS2339: Property 'metrics' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(309,44): error TS2339: Property 'optimizationSuggestions' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(314,31): error TS2339: Property 'now' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(319,38): error TS2339: Property 'coreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(320,36): error TS2339: Property 'memoryUsage' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(370,46): error TS2551: Property 'validateCitationFormat' does not exist on type 'IslamicContentQualityState'. Did you mean 'validateCitation'?
+src/utils/integrationTestRunner.ts(383,49): error TS2339: Property 'assessCulturalSensitivity' does not exist on type 'IslamicContentQualityState'.
+src/utils/integrationTestRunner.ts(452,40): error TS2339: Property 'identifyFutureNeeds' does not exist on type 'PredictiveEnhancementState'.
+src/utils/integrationTestRunner.ts(469,40): error TS2339: Property 'modelAccuracy' does not exist on type 'PredictiveEnhancementState'.
+src/utils/integrationTestRunner.ts(511,9): error TS2353: Object literal may only specify known properties, and 'id' does not exist in type 'Omit<UserInteraction, "id" | "timestamp">'.
+src/utils/integrationTestRunner.ts(541,46): error TS2339: Property 'metrics' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(541,59): error TS7006: Parameter 'm' implicitly has an 'any' type.
+src/utils/integrationTestRunner.ts(542,45): error TS2339: Property 'contentValidations' does not exist on type 'IslamicContentQualityState'.
+src/utils/integrationTestRunner.ts(543,48): error TS2551: Property 'smartCacheStrategies' does not exist on type 'OptimizationEngineState'. Did you mean 'cacheStrategies'?
+src/utils/integrationTestRunner.ts(557,31): error TS2339: Property 'now' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(668,24): error TS2551: Property 'addContentRule' does not exist on type 'IslamicContentQualityState'. Did you mean 'contentRules'?
+src/utils/integrationTestRunner.ts(676,45): error TS2551: Property 'validateContentCompliance' does not exist on type 'IslamicContentQualityState'. Did you mean 'validateUthmaniCompliance'?
+src/utils/integrationTestRunner.ts(719,18): error TS2353: Object literal may only specify known properties, and 'session_type' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/utils/integrationTestRunner.ts(727,7): error TS2353: Object literal may only specify known properties, and 'id' does not exist in type 'Omit<UserInteraction, "id" | "timestamp">'.
+src/utils/integrationTestRunner.ts(737,9): error TS2353: Object literal may only specify known properties, and 'id' does not exist in type 'Omit<UserInteraction, "id" | "timestamp">'.
+src/utils/integrationTestRunner.ts(769,11): error TS2353: Object literal may only specify known properties, and 'attempts' does not exist in type '{ surahNumber?: number | undefined; ayahNumber?: number | undefined; pageNumber?: number | undefined; reciterId?: string | undefined; component?: string | undefined; sessionDuration?: number | undefined; ... 7 more ...; metadata?: Record<...> | undefined; }'.
+src/utils/integrationTestRunner.ts(793,17): error TS2339: Property 'trackCoreWebVitals' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(800,23): error TS2339: Property 'generateOptimizationSuggestions' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(820,27): error TS2448: Block-scoped variable 'performance' used before its declaration.
+src/utils/integrationTestRunner.ts(820,27): error TS2454: Variable 'performance' is used before being assigned.
+src/utils/integrationTestRunner.ts(820,39): error TS2339: Property 'now' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(835,32): error TS2339: Property 'metrics' does not exist on type 'PerformanceMonitorState'.
+src/utils/integrationTestRunner.ts(872,17): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/utils/integrationTestRunner.ts(895,24): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/utils/islamicContentEnhancer.ts(7,1): error TS6133: 'quranApi' is declared but its value is never read.
+src/utils/islamicContentEnhancer.ts(170,23): error TS6133: 'arabicText' is declared but its value is never read.
+src/utils/islamicContentEnhancer.ts(335,11): error TS6133: 'startTime' is declared but its value is never read.
+src/utils/islamicContentEnhancer.ts(349,11): error TS6133: 'endTime' is declared but its value is never read.
+src/utils/mobileOptimization.ts(107,28): error TS6133: 'event' is declared but its value is never read.
+src/utils/mobileOptimization.ts(111,26): error TS6133: 'event' is declared but its value is never read.
+src/utils/performanceMonitor.ts(317,11): error TS6133: 'audioContext' is declared but its value is never read.
+src/utils/performanceOptimizer.ts(87,54): error TS2339: Property 'navigationStart' does not exist on type 'PerformanceNavigationTiming'.
+src/utils/performanceOptimizer.ts(88,65): error TS2339: Property 'navigationStart' does not exist on type 'PerformanceNavigationTiming'.
+src/utils/performanceOptimizer.ts(395,35): error TS2339: Property 'style' does not exist on type 'Element'.
+src/utils/performanceOptimizer.ts(580,11): error TS6133: 'metrics' is declared but its value is never read.
+src/utils/performanceTesting.ts(11,38): error TS2305: Module '"./mobileOptimization"' has no exported member 'MobilePerformanceMetrics'.
+src/utils/performanceTesting.ts(379,11): error TS6133: 'testText' is declared but its value is never read.
+src/utils/performanceTesting.ts(454,48): error TS2339: Property 'getPerformanceMetrics' does not exist on type 'SimpleMobileOptimizer'.
+src/utils/quranApi.ts(329,11): error TS6133: 'calculateGlobalAyahNumber' is declared but its value is never read.
+src/utils/quranApi.ts(349,11): error TS6133: 'getBasicTranslation' is declared but its value is never read.
+src/utils/quranApiEnhanced.ts(71,11): error TS6133: 'generateCacheKey' is declared but its value is never read.
+src/utils/retryLogic.ts(266,5): error TS6133: 'target' is declared but its value is never read.
+src/utils/retryLogic.ts(267,5): error TS6133: 'propertyKey' is declared but its value is never read.
+src/utils/uiText.ts(563,3): error TS2353: Object literal may only specify known properties, and 'progressLevel' does not exist in type 'UIText'.
+src/utils/uiText.ts(859,3): error TS2353: Object literal may only specify known properties, and 'progressLevel' does not exist in type 'UIText'.
+src/utils/uiText.ts(915,13): error TS6133: 'target' is declared but its value is never read.

@@ -1,0 +1,6 @@
+[defaults]
+org=your-sentry-org
+project=quranapp
+
+[auth]
+token=your-sentry-auth-token

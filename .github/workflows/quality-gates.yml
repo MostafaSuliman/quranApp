@@ -1,0 +1,348 @@
+name: Quality Gates
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # Code Coverage Check
+  coverage:
+    name: Code Coverage Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm run test -- --coverage --run
+
+      - name: Run enhanced tests with coverage
+        run: npm run test:enhanced:coverage
+        continue-on-error: true
+
+      - name: Run security tests with coverage
+        run: npm run test:security:coverage
+
+      - name: Check coverage thresholds
+        run: |
+          echo "Checking coverage thresholds..."
+          # This will be enforced by vitest config
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-quranapp
+          fail_ci_if_error: false
+
+      - name: Generate coverage summary
+        run: |
+          echo "## Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f coverage/coverage-summary.json ]; then
+            COVERAGE=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct')
+            echo "**Overall Coverage:** $COVERAGE%" >> $GITHUB_STEP_SUMMARY
+
+            if (( $(echo "$COVERAGE >= 80" | bc -l) )); then
+              echo "✅ Coverage threshold met (≥80%)" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "❌ Coverage below threshold (<80%)" >> $GITHUB_STEP_SUMMARY
+              exit 1
+            fi
+          fi
+
+  # Code Quality Check
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint with JSON output
+        run: npx eslint . --ext ts,tsx --format json --output-file eslint-report.json
+        continue-on-error: true
+
+      - name: Analyze ESLint results
+        run: |
+          if [ -f eslint-report.json ]; then
+            ERRORS=$(jq '[.[] | .errorCount] | add' eslint-report.json)
+            WARNINGS=$(jq '[.[] | .warningCount] | add' eslint-report.json)
+
+            echo "## Code Quality Report" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Errors:** $ERRORS" >> $GITHUB_STEP_SUMMARY
+            echo "**Warnings:** $WARNINGS" >> $GITHUB_STEP_SUMMARY
+
+            if [ "$ERRORS" -gt 0 ]; then
+              echo "❌ ESLint errors found" >> $GITHUB_STEP_SUMMARY
+              exit 1
+            fi
+
+            if [ "$WARNINGS" -gt 10 ]; then
+              echo "⚠️ Too many warnings (>10)" >> $GITHUB_STEP_SUMMARY
+              exit 1
+            fi
+
+            echo "✅ Code quality check passed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload ESLint report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eslint-report
+          path: eslint-report.json
+          retention-days: 7
+
+  # Type Safety Check
+  type-safety:
+    name: TypeScript Type Safety
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript compilation check
+        run: |
+          npx tsc --noEmit --pretty 2>&1 | tee tsc-output.txt
+
+      - name: Check for type errors
+        run: |
+          if grep -q "error TS" tsc-output.txt; then
+            echo "## ❌ TypeScript Errors Found" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            cat tsc-output.txt >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            echo "## ✅ No TypeScript Errors" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  # Security Check
+  security:
+    name: Security Vulnerabilities
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Run npm audit
+        run: |
+          npm audit --json > audit-report.json || true
+
+      - name: Analyze audit results
+        run: |
+          CRITICAL=$(jq '.metadata.vulnerabilities.critical' audit-report.json)
+          HIGH=$(jq '.metadata.vulnerabilities.high' audit-report.json)
+          MODERATE=$(jq '.metadata.vulnerabilities.moderate' audit-report.json)
+
+          echo "## Security Audit Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Severity | Count |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Critical | $CRITICAL |" >> $GITHUB_STEP_SUMMARY
+          echo "| High | $HIGH |" >> $GITHUB_STEP_SUMMARY
+          echo "| Moderate | $MODERATE |" >> $GITHUB_STEP_SUMMARY
+
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Critical vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          if [ "$HIGH" -gt 0 ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ High severity vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ No critical or high vulnerabilities" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit
+          path: audit-report.json
+          retention-days: 30
+
+  # Bundle Size Check
+  bundle-size:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Check bundle size
+        run: |
+          TOTAL_SIZE=$(du -sb dist | cut -f1)
+          TOTAL_SIZE_MB=$(echo "scale=2; $TOTAL_SIZE / 1024 / 1024" | bc)
+
+          echo "## Bundle Size Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Total Size:** ${TOTAL_SIZE_MB}MB" >> $GITHUB_STEP_SUMMARY
+
+          # Fail if bundle is larger than 5MB
+          if (( $(echo "$TOTAL_SIZE_MB > 5" | bc -l) )); then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Bundle size exceeds 5MB threshold" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Bundle size within acceptable limits" >> $GITHUB_STEP_SUMMARY
+
+  # Performance Budget
+  performance-budget:
+    name: Performance Budget Check
+    runs-on: ubuntu-latest
+    needs: bundle-size
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Check JavaScript bundle sizes
+        run: |
+          echo "## JavaScript Bundle Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| File | Size | Threshold | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+
+          FAILED=0
+
+          for file in dist/assets/*.js; do
+            if [ -f "$file" ]; then
+              SIZE=$(du -k "$file" | cut -f1)
+              FILENAME=$(basename "$file")
+
+              # Check if it's a vendor chunk (threshold: 500KB)
+              # Check if it's a page chunk (threshold: 200KB)
+              # Check if it's other (threshold: 100KB)
+
+              if [[ "$FILENAME" == *"vendor"* ]]; then
+                THRESHOLD=500
+              elif [[ "$FILENAME" == *"page"* ]]; then
+                THRESHOLD=200
+              else
+                THRESHOLD=100
+              fi
+
+              if [ "$SIZE" -gt "$THRESHOLD" ]; then
+                echo "| $FILENAME | ${SIZE}KB | ${THRESHOLD}KB | ❌ |" >> $GITHUB_STEP_SUMMARY
+                FAILED=1
+              else
+                echo "| $FILENAME | ${SIZE}KB | ${THRESHOLD}KB | ✅ |" >> $GITHUB_STEP_SUMMARY
+              fi
+            fi
+          done
+
+          if [ "$FAILED" -eq 1 ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Some bundles exceed size thresholds" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+  # All quality gates passed
+  quality-gates-passed:
+    name: All Quality Gates Passed
+    runs-on: ubuntu-latest
+    needs: [coverage, code-quality, type-safety, security, bundle-size, performance-budget]
+    if: always()
+
+    steps:
+      - name: Check all gates
+        run: |
+          if [[ "${{ needs.coverage.result }}" == "success" ]] && \
+             [[ "${{ needs.code-quality.result }}" == "success" ]] && \
+             [[ "${{ needs.type-safety.result }}" == "success" ]] && \
+             [[ "${{ needs.security.result }}" == "success" ]] && \
+             [[ "${{ needs.bundle-size.result }}" == "success" ]] && \
+             [[ "${{ needs.performance-budget.result }}" == "success" ]]; then
+            echo "## ✅ All Quality Gates Passed!" >> $GITHUB_STEP_SUMMARY
+            exit 0
+          else
+            echo "## ❌ Some Quality Gates Failed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| Gate | Status |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Coverage | ${{ needs.coverage.result }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Code Quality | ${{ needs.code-quality.result }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Type Safety | ${{ needs.type-safety.result }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Security | ${{ needs.security.result }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Bundle Size | ${{ needs.bundle-size.result }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Performance Budget | ${{ needs.performance-budget.result }} |" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi

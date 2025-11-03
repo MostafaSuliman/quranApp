@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="24" fill="#047857"/>
+  <g transform="translate(48, 48)">
+    <!-- Quran Book Icon -->
+    <rect x="24" y="16" width="72" height="96" rx="4" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+    <rect x="32" y="24" width="56" height="4" fill="#047857"/>
+    <rect x="32" y="32" width="48" height="3" fill="#047857"/>
+    <rect x="32" y="39" width="52" height="3" fill="#047857"/>
+    <rect x="32" y="46" width="44" height="3" fill="#047857"/>
+    <rect x="32" y="53" width="50" height="3" fill="#047857"/>
+    <!-- Arabic text representation -->
+    <text x="48" y="80" font-family="serif" font-size="24" fill="#047857" text-anchor="middle">﷽</text>
+  </g>
+</svg>

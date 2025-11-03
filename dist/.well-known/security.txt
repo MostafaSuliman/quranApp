@@ -1,0 +1,72 @@
+# Security Policy for QuranApp
+# ===========================================
+# This file is used for responsible disclosure of security vulnerabilities
+
+Contact: mailto:security@quranapp.com
+Contact: https://github.com/your-org/quranapp/security/advisories/new
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en, ar
+Canonical: https://quranapp.com/.well-known/security.txt
+
+# Encryption Key
+# For secure communications, use our PGP key
+# Encryption: https://quranapp.com/pgp-key.txt
+
+# Security Acknowledgments
+# We maintain a public acknowledgments page for security researchers
+Acknowledgments: https://quranapp.com/security/hall-of-fame
+
+# Security Policy
+# Please read our security policy before reporting
+Policy: https://quranapp.com/security/policy
+
+# Hiring
+# We're always looking for talented security researchers
+Hiring: https://quranapp.com/careers/security
+
+# Reporting Guidelines
+# =====================
+
+# In Scope:
+# - Authentication & Authorization vulnerabilities
+# - SQL Injection, XSS, CSRF
+# - Remote Code Execution (RCE)
+# - Server-Side Request Forgery (SSRF)
+# - Islamic content integrity issues
+# - Data leakage and privacy violations
+# - Cryptographic vulnerabilities
+
+# Out of Scope:
+# - Social engineering attacks
+# - Physical attacks
+# - Denial of Service (DoS/DDoS)
+# - Issues in third-party APIs
+# - Publicly disclosed vulnerabilities
+
+# Response Timeline:
+# - Initial response: Within 24 hours
+# - Vulnerability assessment: Within 3-5 business days
+# - Fix deployment: Based on severity (Critical: 24-48h, High: 1 week, Medium: 2 weeks)
+# - Public disclosure: 90 days after fix deployment
+
+# Reward Program:
+# We offer rewards for valid security vulnerabilities:
+# - Critical: $500-$2000
+# - High: $200-$500
+# - Medium: $50-$200
+# - Low: Recognition and acknowledgment
+
+# Islamic Content Security:
+# Special consideration for vulnerabilities affecting:
+# - Quran text integrity
+# - Arabic text rendering
+# - Islamic content authentication
+# - Prayer time accuracy
+
+# Contact Information:
+# Primary: security@quranapp.com
+# Emergency: +1-XXX-XXX-XXXX (24/7 security hotline)
+# PGP Fingerprint: XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX
+
+# Thank you for helping keep QuranApp secure!
+# May Allah reward your efforts in protecting this Islamic service.

@@ -1,0 +1,407 @@
+/* Traditional Mushaf Layout Styles */
+/* Based on authentic Mushaf design patterns */
+
+/* Uthmani Script Font Declaration */
+@font-face {
+  font-family: 'Uthmanic';
+  src: url('https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap');
+  font-display: swap;
+}
+
+/* Traditional Mushaf Page Container */
+.traditional-mushaf-page {
+  /* Page dimensions following traditional Mushaf proportions */
+  width: 100%;
+  max-width: 800px;
+  min-height: 600px;
+  margin: 0 auto;
+  
+  /* Traditional cream paper background */
+  background: linear-gradient(145deg, #fefdfb 0%, #f9f7f4 50%, #f5f3f0 100%);
+  border: 3px solid #d4af37;
+  border-radius: 8px;
+  
+  /* Authentic margins following traditional Mushaf */
+  padding: 40px 32px 48px 32px;
+  
+  /* Traditional shadow */
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode page styling */
+.dark .traditional-mushaf-page {
+  background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 50%, #1f1f1f 100%);
+  border-color: #d4af37;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(212, 175, 55, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Traditional Page Border Decorations */
+.mushaf-border-decoration {
+  position: absolute;
+  inset: 16px;
+  border: 2px solid #d4af37;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.mushaf-border-decoration::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid #e6c762;
+  border-radius: 2px;
+}
+
+/* Traditional 15-Line Layout Container */
+.mushaf-lines-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0;
+}
+
+/* Individual Line Styling */
+.mushaf-line {
+  min-height: 36px;
+  line-height: 36px;
+  text-align: justify;
+  text-justify: inter-word;
+  direction: rtl;
+  
+  /* Traditional spacing */
+  margin-bottom: 2px;
+  
+  /* Uthmani script styling */
+  font-family: 'Uthmanic', 'Amiri Quran', 'Scheherazade New', 'Noto Naskh Arabic', serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+  
+  /* Text rendering optimization */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Traditional text color */
+  color: #2c2c2c;
+}
+
+.dark .mushaf-line {
+  color: #e8e8e8;
+}
+
+/* Responsive line sizing */
+@media (max-width: 768px) {
+  .mushaf-line {
+    font-size: 18px;
+    line-height: 32px;
+    min-height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mushaf-line {
+    font-size: 16px;
+    line-height: 28px;
+    min-height: 28px;
+  }
+}
+
+/* Traditional Ayah Text Styling */
+.mushaf-ayah-text {
+  display: inline;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+  padding: 1px 2px;
+}
+
+.mushaf-ayah-text:hover {
+  background-color: rgba(212, 175, 55, 0.15);
+  box-shadow: 0 0 4px rgba(212, 175, 55, 0.3);
+}
+
+.mushaf-ayah-text.selected {
+  background-color: rgba(212, 175, 55, 0.25);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+.mushaf-ayah-text.playing {
+  background-color: rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  animation: ayah-pulse 2s ease-in-out infinite;
+}
+
+/* Traditional Ayah Number Styling */
+.mushaf-ayah-number {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, #d4af37 0%, #b8941f 100%);
+  color: white;
+  border: 2px solid #e6c762;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 4px;
+  vertical-align: middle;
+  
+  /* Traditional Arabic numerals font */
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  
+  /* Subtle shadow */
+  box-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
+  transition: all 0.2s ease;
+}
+
+.mushaf-ayah-number:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px rgba(212, 175, 55, 0.4);
+}
+
+.dark .mushaf-ayah-number {
+  background: radial-gradient(circle, #d4af37 0%, #b8941f 100%);
+  border-color: #e6c762;
+}
+
+/* Traditional Surah Header */
+.mushaf-surah-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 16px 0;
+  border-bottom: 2px solid #d4af37;
+  position: relative;
+}
+
+.mushaf-surah-header::before,
+.mushaf-surah-header::after {
+  content: '﴾';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #d4af37;
+}
+
+.mushaf-surah-header::before {
+  left: 20px;
+}
+
+.mushaf-surah-header::after {
+  right: 20px;
+  content: '﴿';
+}
+
+/* Surah Name Styling */
+.mushaf-surah-name {
+  font-family: 'Uthmanic', 'Amiri', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #d4af37;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dark .mushaf-surah-name {
+  color: #e6c762;
+}
+
+/* Surah Info (Meccan/Medinan, verse count) */
+.mushaf-surah-info {
+  font-family: 'Amiri', serif;
+  font-size: 14px;
+  color: #666;
+  direction: rtl;
+  text-align: center;
+}
+
+.dark .mushaf-surah-info {
+  color: #aaa;
+}
+
+/* Traditional Bismillah Styling */
+.mushaf-bismillah {
+  text-align: center;
+  margin: 20px 0;
+  padding: 16px;
+  background: linear-gradient(45deg, rgba(212, 175, 55, 0.1) 0%, rgba(230, 199, 98, 0.05) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 8px;
+  position: relative;
+}
+
+.mushaf-bismillah-text {
+  font-family: 'Uthmanic', 'Amiri', serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #d4af37;
+  direction: rtl;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.05em;
+  word-spacing: 0.2em;
+}
+
+.dark .mushaf-bismillah-text {
+  color: #e6c762;
+}
+
+/* Decorative Corner Elements */
+.mushaf-bismillah::before,
+.mushaf-bismillah::after {
+  content: '۞';
+  position: absolute;
+  top: 8px;
+  font-size: 16px;
+  color: #d4af37;
+}
+
+.mushaf-bismillah::before {
+  left: 16px;
+}
+
+.mushaf-bismillah::after {
+  right: 16px;
+}
+
+/* Traditional Page Number */
+.mushaf-page-number {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background: linear-gradient(45deg, #d4af37 0%, #e6c762 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-family: 'Amiri', serif;
+  font-size: 14px;
+  font-weight: 600;
+  
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  border: 1px solid #e6c762;
+}
+
+.dark .mushaf-page-number {
+  background: linear-gradient(45deg, #d4af37 0%, #b8941f 100%);
+  border-color: #e6c762;
+}
+
+/* Juz Information */
+.mushaf-juz-info {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'Amiri', serif;
+  font-size: 12px;
+  color: #666;
+  background: rgba(212, 175, 55, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.dark .mushaf-juz-info {
+  color: #aaa;
+  background: rgba(212, 175, 55, 0.15);
+}
+
+/* Animations */
+@keyframes ayah-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.6);
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mushaf-page-enter {
+  animation: page-fade-in 0.6s ease-out;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .traditional-mushaf-page {
+    max-width: 95%;
+    padding: 24px 16px 32px 16px;
+    margin: 8px auto;
+  }
+  
+  .mushaf-surah-name {
+    font-size: 20px;
+  }
+  
+  .mushaf-bismillah-text {
+    font-size: 24px;
+  }
+  
+  .mushaf-border-decoration {
+    inset: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .traditional-mushaf-page {
+    padding: 16px 12px 24px 12px;
+    min-height: 500px;
+  }
+  
+  .mushaf-surah-name {
+    font-size: 18px;
+  }
+  
+  .mushaf-bismillah-text {
+    font-size: 20px;
+  }
+  
+  .mushaf-ayah-number {
+    width: 20px;
+    height: 20px;
+    line-height: 16px;
+    font-size: 10px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .traditional-mushaf-page {
+    max-width: none;
+    width: 100%;
+    box-shadow: none;
+    border: 2px solid #d4af37;
+    page-break-inside: avoid;
+  }
+  
+  .mushaf-line {
+    color: #000;
+  }
+  
+  .mushaf-page-number {
+    background: #d4af37;
+    color: white;
+  }
+}

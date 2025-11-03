@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/quran-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#047857" />
+    <meta name="description" content="Beautiful Quran memorization app with gamification - completely free Fi Sabilillah" />
+
+    <!-- Security headers are configured in netlify.toml -->
+    <!-- Note: CSP, X-Frame-Options, etc. must be set via HTTP headers, not <meta> tags -->
+
+    <!-- Privacy and Data Protection -->
+    <meta name="privacy-policy" content="/privacy-policy" />
+    <meta name="data-protection" content="GDPR, CCPA compliant" />
+    <meta name="content-integrity" content="Islamic content digitally verified" />
+    
+    <!-- PWA Meta Tags -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Islamic/Arabic Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Primary Arabic fonts for Quran -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Uthmanic Hafs font for traditional Mushaf style -->
+    <link href="https://fonts.googleapis.com/css2?family=Uthmanic&display=swap" rel="stylesheet" onerror="this.remove()">
+    
+    <title>Quran Memorization - Fi Sabilillah</title>
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
