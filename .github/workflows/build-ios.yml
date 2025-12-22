@@ -1,0 +1,94 @@
+name: Build iOS App
+
+on:
+  push:
+    branches: [main, master]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  build:
+    runs-on: macos-latest  # Note: macOS runners use more minutes
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Sync Capacitor
+        run: npx cap sync ios
+
+      - name: Install CocoaPods
+        run: |
+          cd ios/App
+          pod install
+
+      - name: Build iOS (Simulator)
+        run: |
+          cd ios/App
+          xcodebuild -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -derivedDataPath build \
+            build
+
+      - name: Upload iOS Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-simulator-build
+          path: ios/App/build/Build/Products/Debug-iphonesimulator/
+
+  # For actual App Store release, you need Apple certificates
+  # This is a separate job that requires secrets setup
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: macos-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Sync Capacitor
+        run: npx cap sync ios
+
+      - name: Install CocoaPods
+        run: |
+          cd ios/App
+          pod install
+
+      # Note: For actual release, you need to:
+      # 1. Import Apple certificates (use fastlane match or manual import)
+      # 2. Set up provisioning profiles
+      # 3. Archive and export IPA
+      - name: Build Release Archive
+        run: |
+          echo "For App Store release, configure Apple certificates in GitHub Secrets"
+          echo "Then use: xcodebuild archive -workspace App.xcworkspace ..."
