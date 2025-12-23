@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import type {
   PageProgress,
   DailyProgress,
@@ -9,7 +10,6 @@ import type {
   ReviewEntry,
   Milestone,
   FortressProgress,
-  getReviewGuideline,
 } from '@/types'
 import {
   getPageProgress,
@@ -20,10 +20,9 @@ import {
   getUserStats,
   setUserStats,
 } from '@/utils/storage'
-import { getTodayString, getCurrentSessionTime, isToday } from '@/utils/date'
+import { getTodayString } from '@/utils/date'
 
 // Constants
-const TOTAL_PAGES = 604
 const PAGES_PER_JUZ = 20
 
 interface MemorizationState {
@@ -88,7 +87,7 @@ interface MemorizationActions {
   getTotalJuzMemorized: () => number
 
   // Helpers
-  getPageProgress: (pageNumber: number) => PageProgress | undefined
+  getPageProgressByNumber: (pageNumber: number) => PageProgress | undefined
   needsReview: (pageNumber: number) => boolean
 }
 
@@ -175,7 +174,7 @@ export const useMemorizationStore = create<MemorizationState & MemorizationActio
       stats: null,
       statsLoading: false,
 
-      // Load progress from IndexedDB
+      // Load progress from AsyncStorage
       loadProgress: async () => {
         set({ progressLoading: true })
 
@@ -342,7 +341,7 @@ export const useMemorizationStore = create<MemorizationState & MemorizationActio
 
       // End session
       endSession: async () => {
-        const { currentSessionType, currentPage, sessionRepetitions, todayProgress } = get()
+        const { currentPage, sessionRepetitions, todayProgress } = get()
 
         if (currentPage && sessionRepetitions > 0) {
           await get().recordRepetition(currentPage, sessionRepetitions)
@@ -524,7 +523,7 @@ export const useMemorizationStore = create<MemorizationState & MemorizationActio
       },
 
       // Get page progress
-      getPageProgress: (pageNumber) => {
+      getPageProgressByNumber: (pageNumber) => {
         return get().pageProgress.get(pageNumber)
       },
 
@@ -547,7 +546,7 @@ export const useMemorizationStore = create<MemorizationState & MemorizationActio
     }),
     {
       name: 'quran-memorization',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => ({
         fortressProgress: state.fortressProgress,
         currentStreak: state.currentStreak,

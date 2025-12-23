@@ -7,14 +7,36 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-dist-node
-*.local
-*.tsbuildinfo
-vite.config.d.ts
-vite.config.js
+# Dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native builds
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+
+# iOS
+ios/
+*.xcworkspace
+*.xcuserdata
+DerivedData/
+
+# Android
+android/
+*.apk
+*.aab
+
+# Metro
+.metro-health-check*
 
 # Editor directories and files
 .vscode/*
@@ -34,21 +56,14 @@ vite.config.js
 .env.test.local
 .env.production.local
 
+# EAS
+google-service-account.json
+
 # Testing
 coverage
 
-# PWA
-dev-dist
+# TypeScript
+*.tsbuildinfo
 
-# Capacitor - Native builds (keep native project files in git)
-android/app/src/main/assets/public
-android/app/build
-android/.gradle
-android/local.properties
-android/*.iml
-android/.idea
-ios/App/App/public
-ios/App/Pods
-ios/DerivedData
-*.xcworkspace
-*.xcuserdata
+# Legacy web files (can be removed after migration)
+web-legacy/

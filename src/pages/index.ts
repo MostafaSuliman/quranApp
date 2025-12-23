@@ -1,6 +1,0 @@
-export * from './HomePage'
-export * from './MemorizePage'
-export * from './ListenPage'
-export * from './ProgressPage'
-export * from './SettingsPage'
-export * from './OnboardingPage'

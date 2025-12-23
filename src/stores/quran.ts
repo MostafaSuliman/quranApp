@@ -1,250 +1,170 @@
 import { create } from 'zustand'
-import type { Surah, Ayah, VerseReference } from '@/types'
-import { getAllSurahs, getPage, getSurah, UTHMANI_EDITION } from '@/services/alquran-cloud'
-import { getChapters, type ChapterInfo } from '@/services/quran-com'
+import type { Surah, Ayah } from '@/types'
+import { getAllSurahs, getSurah, getPage } from '@/services/alquran-cloud'
 
 interface QuranState {
-  // Surah data (fetched from API)
+  // Surah list
   surahs: Surah[]
-  chapters: ChapterInfo[]
   surahsLoading: boolean
-  surahsError: string | null
 
-  // Current position
-  currentPage: number // 1-604
-  currentSurah: number // 1-114
-  currentAyah: number // Ayah number within surah
-  currentJuz: number // 1-30
+  // Current view
+  currentPage: number
+  currentSurah: number | null
+  currentAyah: number | null
 
-  // Page data (fetched from API)
-  currentPageAyahs: Ayah[]
+  // Loaded content
+  pageAyahs: Map<number, Ayah[]>
+  surahAyahs: Map<number, Ayah[]>
+
+  // Loading states
   pageLoading: boolean
-  pageError: string | null
+  surahLoading: boolean
 
-  // View mode
-  viewMode: 'text' | 'mushaf' // Text view or Mushaf image view
-
-  // Bookmarks
-  bookmarkedPages: number[]
+  // Error
+  error: string | null
 }
 
 interface QuranActions {
-  // Initialization
+  // Data loading
   loadSurahs: () => Promise<void>
+  loadPage: (pageNumber: number) => Promise<Ayah[]>
+  loadSurah: (surahNumber: number) => Promise<Ayah[]>
 
   // Navigation
-  goToPage: (pageNumber: number) => Promise<void>
-  goToSurah: (surahNumber: number) => Promise<void>
-  goToAyah: (surahNumber: number, ayahNumber: number) => Promise<void>
-  goToJuz: (juzNumber: number) => Promise<void>
-  nextPage: () => Promise<void>
-  previousPage: () => Promise<void>
+  setCurrentPage: (page: number) => void
+  setCurrentSurah: (surah: number | null) => void
+  setCurrentAyah: (ayah: number | null) => void
+  goToNextPage: () => void
+  goToPreviousPage: () => void
 
-  // View mode
-  setViewMode: (mode: QuranState['viewMode']) => void
-
-  // Bookmarks
-  toggleBookmark: (pageNumber: number) => void
-  isBookmarked: (pageNumber: number) => boolean
-
-  // Current verse tracking
-  setCurrentVerse: (verse: VerseReference) => void
-}
-
-// Helper to get Juz from page number (approximate)
-function getJuzFromPage(pageNumber: number): number {
-  // Each Juz is approximately 20 pages in the Madani Mushaf
-  return Math.min(30, Math.ceil(pageNumber / 20))
+  // Helpers
+  getSurahByNumber: (number: number) => Surah | undefined
+  getPageAyahs: (pageNumber: number) => Ayah[] | undefined
+  getSurahAyahsList: (surahNumber: number) => Ayah[] | undefined
 }
 
 export const useQuranStore = create<QuranState & QuranActions>()((set, get) => ({
   // Initial state
   surahs: [],
-  chapters: [],
   surahsLoading: false,
-  surahsError: null,
-
   currentPage: 1,
-  currentSurah: 1,
-  currentAyah: 1,
-  currentJuz: 1,
-
-  currentPageAyahs: [],
+  currentSurah: null,
+  currentAyah: null,
+  pageAyahs: new Map(),
+  surahAyahs: new Map(),
   pageLoading: false,
-  pageError: null,
+  surahLoading: false,
+  error: null,
 
-  viewMode: 'text',
-  bookmarkedPages: [],
-
-  // Load all Surahs metadata
+  // Load all surahs
   loadSurahs: async () => {
-    set({ surahsLoading: true, surahsError: null })
+    if (get().surahs.length > 0) return
+
+    set({ surahsLoading: true, error: null })
 
     try {
-      // Fetch from both APIs in parallel
-      const [surahs, chaptersResponse] = await Promise.all([
-        getAllSurahs(),
-        getChapters(),
-      ])
-
+      const surahs = await getAllSurahs()
+      set({ surahs, surahsLoading: false })
+    } catch (error) {
+      console.error('Failed to load surahs:', error)
       set({
-        surahs,
-        chapters: chaptersResponse.chapters,
         surahsLoading: false,
-      })
-    } catch (error) {
-      set({
-        surahsError: error instanceof Error ? error.message : 'Failed to load Surahs',
-        surahsLoading: false,
+        error: error instanceof Error ? error.message : 'Failed to load surahs',
       })
     }
   },
 
-  // Go to specific page
-  goToPage: async (pageNumber: number) => {
-    if (pageNumber < 1 || pageNumber > 604) return
+  // Load page
+  loadPage: async (pageNumber) => {
+    const cached = get().pageAyahs.get(pageNumber)
+    if (cached) return cached
 
-    set({ pageLoading: true, pageError: null, currentPage: pageNumber })
+    set({ pageLoading: true, error: null })
 
     try {
-      const pageData = await getPage(pageNumber, UTHMANI_EDITION)
-
-      // Update current position based on first ayah on page
-      const firstAyah = pageData.ayahs[0]
-      if (firstAyah) {
-        set({
-          currentPageAyahs: pageData.ayahs,
-          currentSurah: firstAyah.surah?.number || get().currentSurah,
-          currentAyah: firstAyah.numberInSurah,
-          currentJuz: firstAyah.juz || getJuzFromPage(pageNumber),
-          pageLoading: false,
-        })
-      } else {
-        set({
-          currentPageAyahs: pageData.ayahs,
-          currentJuz: getJuzFromPage(pageNumber),
-          pageLoading: false,
-        })
-      }
+      const data = await getPage(pageNumber)
+      const { pageAyahs } = get()
+      pageAyahs.set(pageNumber, data.ayahs)
+      set({ pageAyahs: new Map(pageAyahs), pageLoading: false })
+      return data.ayahs
     } catch (error) {
+      console.error('Failed to load page:', error)
       set({
-        pageError: error instanceof Error ? error.message : 'Failed to load page',
         pageLoading: false,
+        error: error instanceof Error ? error.message : 'Failed to load page',
       })
+      return []
     }
   },
 
-  // Go to specific Surah
-  goToSurah: async (surahNumber: number) => {
-    if (surahNumber < 1 || surahNumber > 114) return
+  // Load surah
+  loadSurah: async (surahNumber) => {
+    const cached = get().surahAyahs.get(surahNumber)
+    if (cached) return cached
 
-    set({ pageLoading: true, pageError: null })
+    set({ surahLoading: true, error: null })
 
     try {
-      const surahData = await getSurah(surahNumber, UTHMANI_EDITION)
-      const firstAyah = surahData.ayahs[0]
-
-      if (firstAyah) {
-        // Navigate to the page containing the first ayah
-        await get().goToPage(firstAyah.page)
-        set({ currentSurah: surahNumber, currentAyah: 1 })
-      }
+      const data = await getSurah(surahNumber)
+      const { surahAyahs } = get()
+      surahAyahs.set(surahNumber, data.ayahs)
+      set({ surahAyahs: new Map(surahAyahs), surahLoading: false })
+      return data.ayahs
     } catch (error) {
+      console.error('Failed to load surah:', error)
       set({
-        pageError: error instanceof Error ? error.message : 'Failed to load Surah',
-        pageLoading: false,
+        surahLoading: false,
+        error: error instanceof Error ? error.message : 'Failed to load surah',
       })
+      return []
     }
   },
 
-  // Go to specific Ayah
-  goToAyah: async (surahNumber: number, ayahNumber: number) => {
-    set({ pageLoading: true, pageError: null })
-
-    try {
-      const surahData = await getSurah(surahNumber, UTHMANI_EDITION)
-      const ayah = surahData.ayahs.find((a) => a.numberInSurah === ayahNumber)
-
-      if (ayah) {
-        await get().goToPage(ayah.page)
-        set({ currentSurah: surahNumber, currentAyah: ayahNumber })
-      }
-    } catch (error) {
-      set({
-        pageError: error instanceof Error ? error.message : 'Failed to load Ayah',
-        pageLoading: false,
-      })
+  // Navigation
+  setCurrentPage: (page) => {
+    if (page >= 1 && page <= 604) {
+      set({ currentPage: page })
     }
   },
 
-  // Go to specific Juz
-  goToJuz: async (juzNumber: number) => {
-    if (juzNumber < 1 || juzNumber > 30) return
-
-    // Approximate starting page for each Juz
-    const juzStartPages: Record<number, number> = {
-      1: 1, 2: 22, 3: 42, 4: 62, 5: 82,
-      6: 102, 7: 121, 8: 142, 9: 162, 10: 182,
-      11: 201, 12: 222, 13: 242, 14: 262, 15: 282,
-      16: 302, 17: 322, 18: 342, 19: 362, 20: 382,
-      21: 402, 22: 422, 23: 442, 24: 462, 25: 482,
-      26: 502, 27: 522, 28: 542, 29: 562, 30: 582,
-    }
-
-    const startPage = juzStartPages[juzNumber] || 1
-    await get().goToPage(startPage)
-    set({ currentJuz: juzNumber })
+  setCurrentSurah: (surah) => {
+    set({ currentSurah: surah })
   },
 
-  // Next page
-  nextPage: async () => {
+  setCurrentAyah: (ayah) => {
+    set({ currentAyah: ayah })
+  },
+
+  goToNextPage: () => {
     const { currentPage } = get()
     if (currentPage < 604) {
-      await get().goToPage(currentPage + 1)
+      set({ currentPage: currentPage + 1 })
     }
   },
 
-  // Previous page
-  previousPage: async () => {
+  goToPreviousPage: () => {
     const { currentPage } = get()
     if (currentPage > 1) {
-      await get().goToPage(currentPage - 1)
+      set({ currentPage: currentPage - 1 })
     }
   },
 
-  // Set view mode
-  setViewMode: (viewMode) => set({ viewMode }),
-
-  // Toggle bookmark
-  toggleBookmark: (pageNumber) => {
-    const { bookmarkedPages } = get()
-    if (bookmarkedPages.includes(pageNumber)) {
-      set({ bookmarkedPages: bookmarkedPages.filter((p) => p !== pageNumber) })
-    } else {
-      set({ bookmarkedPages: [...bookmarkedPages, pageNumber] })
-    }
+  // Helpers
+  getSurahByNumber: (number) => {
+    return get().surahs.find((s) => s.number === number)
   },
 
-  // Check if page is bookmarked
-  isBookmarked: (pageNumber) => {
-    return get().bookmarkedPages.includes(pageNumber)
+  getPageAyahs: (pageNumber) => {
+    return get().pageAyahs.get(pageNumber)
   },
 
-  // Set current verse for tracking
-  setCurrentVerse: (verse) => {
-    set({
-      currentSurah: verse.surahNumber,
-      currentAyah: verse.ayahNumber,
-      currentPage: verse.pageNumber,
-      currentJuz: verse.juz,
-    })
+  getSurahAyahsList: (surahNumber) => {
+    return get().surahAyahs.get(surahNumber)
   },
 }))
 
 // Selectors
-export const useCurrentPage = () => useQuranStore((s) => s.currentPage)
-export const useCurrentSurah = () => useQuranStore((s) => s.currentSurah)
 export const useSurahs = () => useQuranStore((s) => s.surahs)
-export const useChapters = () => useQuranStore((s) => s.chapters)
-export const usePageAyahs = () => useQuranStore((s) => s.currentPageAyahs)
-export const useViewMode = () => useQuranStore((s) => s.viewMode)
+export const useCurrentPage = () => useQuranStore((s) => s.currentPage)
+export const usePageLoading = () => useQuranStore((s) => s.pageLoading)
+export const useSurahLoading = () => useQuranStore((s) => s.surahLoading)

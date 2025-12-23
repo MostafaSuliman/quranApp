@@ -1,324 +1,238 @@
 import { create } from 'zustand'
-import type { VerseReference, Reciter } from '@/types'
-import { getAudioEditions, getAyahAudioUrl } from '@/services/alquran-cloud'
+import { Audio, AVPlaybackStatus } from 'expo-av'
+import type { VerseReference } from '@/types'
+import { getAyahAudioUrl } from '@/services/alquran-cloud'
 
 interface AudioState {
-  // Audio element
-  audioElement: HTMLAudioElement | null
-
   // Playback state
   isPlaying: boolean
   isLoading: boolean
-  error: string | null
+  sound: Audio.Sound | null
 
   // Current playback
-  currentVerse: VerseReference | null
-  currentAudioUrl: string | null
-
-  // Reciter
-  reciters: Reciter[]
-  recitersLoading: boolean
-  selectedReciterId: string
+  currentAyah: VerseReference | null
+  reciterId: string
 
   // Playback settings
-  playbackSpeed: number // 0.75, 1, 1.25, etc.
-  volume: number // 0-1
+  playbackSpeed: number
+  repeatCount: number
+  currentRepeat: number
+  autoPlayNext: boolean
 
-  // Repeat/Loop settings
-  repeatMode: 'off' | 'verse' | 'range'
-  repeatCount: number // How many times to repeat
-  currentRepeat: number // Current repeat count
+  // Loop settings
   loopStart: VerseReference | null
   loopEnd: VerseReference | null
+  isLooping: boolean
 
-  // Queue
-  queue: VerseReference[]
-  queueIndex: number
+  // Progress
+  positionMs: number
+  durationMs: number
+
+  // Error
+  error: string | null
 }
 
 interface AudioActions {
-  // Initialization
-  initAudio: () => void
-  loadReciters: () => Promise<void>
-
   // Playback controls
-  playVerse: (verse: VerseReference) => Promise<void>
-  pause: () => void
-  resume: () => void
-  stop: () => void
-
-  // Queue management
-  setQueue: (verses: VerseReference[]) => void
-  playNext: () => Promise<void>
-  playPrevious: () => Promise<void>
-
-  // Reciter selection
-  setReciter: (reciterId: string) => void
+  playAyah: (surahNumber: number, ayahNumber: number, reciterId: string) => Promise<void>
+  pause: () => Promise<void>
+  resume: () => Promise<void>
+  stop: () => Promise<void>
+  seek: (positionMs: number) => Promise<void>
 
   // Settings
-  setPlaybackSpeed: (speed: number) => void
-  setVolume: (volume: number) => void
-
-  // Repeat/Loop
-  setRepeatMode: (mode: AudioState['repeatMode']) => void
+  setPlaybackSpeed: (speed: number) => Promise<void>
   setRepeatCount: (count: number) => void
+  setAutoPlayNext: (enabled: boolean) => void
+  setReciterId: (id: string) => void
+
+  // Loop controls
   setLoopRange: (start: VerseReference | null, end: VerseReference | null) => void
+  toggleLoop: () => void
 
   // Cleanup
-  cleanup: () => void
+  cleanup: () => Promise<void>
+}
+
+const initialState: AudioState = {
+  isPlaying: false,
+  isLoading: false,
+  sound: null,
+  currentAyah: null,
+  reciterId: 'ar.alafasy',
+  playbackSpeed: 1,
+  repeatCount: 1,
+  currentRepeat: 0,
+  autoPlayNext: true,
+  loopStart: null,
+  loopEnd: null,
+  isLooping: false,
+  positionMs: 0,
+  durationMs: 0,
+  error: null,
 }
 
 export const useAudioStore = create<AudioState & AudioActions>()((set, get) => ({
-  // Initial state
-  audioElement: null,
-  isPlaying: false,
-  isLoading: false,
-  error: null,
+  ...initialState,
 
-  currentVerse: null,
-  currentAudioUrl: null,
+  playAyah: async (surahNumber, ayahNumber, reciterId) => {
+    const { sound: currentSound } = get()
 
-  reciters: [],
-  recitersLoading: false,
-  selectedReciterId: 'ar.alafasy',
-
-  playbackSpeed: 1,
-  volume: 1,
-
-  repeatMode: 'off',
-  repeatCount: 1,
-  currentRepeat: 0,
-  loopStart: null,
-  loopEnd: null,
-
-  queue: [],
-  queueIndex: 0,
-
-  // Initialize audio element
-  initAudio: () => {
-    if (get().audioElement) return
-
-    const audio = new Audio()
-
-    // Event handlers
-    audio.onended = () => {
-      const state = get()
-
-      // Handle repeat
-      if (state.repeatMode === 'verse' && state.currentRepeat < state.repeatCount - 1) {
-        set({ currentRepeat: state.currentRepeat + 1 })
-        audio.currentTime = 0
-        audio.play()
-        return
-      }
-
-      // Reset repeat counter
-      set({ currentRepeat: 0 })
-
-      // Play next in queue
-      if (state.queueIndex < state.queue.length - 1) {
-        get().playNext()
-      } else if (state.repeatMode === 'range' && state.loopStart) {
-        // Loop back to start of range
-        set({ queueIndex: 0 })
-        const firstVerse = state.queue[0]
-        if (firstVerse) {
-          get().playVerse(firstVerse)
-        }
-      } else {
-        set({ isPlaying: false })
-      }
-    }
-
-    audio.onerror = () => {
-      set({
-        isPlaying: false,
-        isLoading: false,
-        error: 'Failed to play audio',
-      })
-    }
-
-    audio.onloadstart = () => set({ isLoading: true })
-    audio.oncanplay = () => set({ isLoading: false })
-
-    set({ audioElement: audio })
-  },
-
-  // Load available reciters
-  loadReciters: async () => {
-    set({ recitersLoading: true })
+    set({ isLoading: true, error: null })
 
     try {
-      const reciters = await getAudioEditions()
-      set({ reciters, recitersLoading: false })
-    } catch (error) {
-      set({
-        recitersLoading: false,
-        error: error instanceof Error ? error.message : 'Failed to load reciters',
-      })
-    }
-  },
+      // Cleanup previous sound
+      if (currentSound) {
+        await currentSound.unloadAsync()
+      }
 
-  // Play a specific verse
-  playVerse: async (verse: VerseReference) => {
-    const { audioElement, selectedReciterId } = get()
+      // Get audio URL from API
+      const audioUrl = await getAyahAudioUrl(surahNumber, ayahNumber, reciterId)
 
-    if (!audioElement) {
-      get().initAudio()
-    }
-
-    const audio = get().audioElement
-    if (!audio) return
-
-    set({ isLoading: true, error: null, currentVerse: verse })
-
-    try {
-      const audioUrl = await getAyahAudioUrl(
-        verse.surahNumber,
-        verse.ayahNumber,
-        selectedReciterId
+      // Create new sound
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: audioUrl },
+        { shouldPlay: true, rate: get().playbackSpeed },
+        (status) => onPlaybackStatusUpdate(status, set, get)
       )
 
-      audio.src = audioUrl
-      audio.playbackRate = get().playbackSpeed
-      audio.volume = get().volume
-
-      await audio.play()
-
       set({
+        sound,
+        currentAyah: {
+          surahNumber,
+          ayahNumber,
+          pageNumber: 0, // Will be updated from API data
+          juz: 0,
+        },
+        reciterId,
         isPlaying: true,
         isLoading: false,
-        currentAudioUrl: audioUrl,
+        currentRepeat: 0,
       })
     } catch (error) {
+      console.error('Failed to play ayah:', error)
       set({
-        isPlaying: false,
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Failed to play verse',
+        error: error instanceof Error ? error.message : 'Failed to play audio',
       })
     }
   },
 
-  // Pause playback
-  pause: () => {
-    const { audioElement } = get()
-    if (audioElement) {
-      audioElement.pause()
+  pause: async () => {
+    const { sound } = get()
+    if (sound) {
+      await sound.pauseAsync()
       set({ isPlaying: false })
     }
   },
 
-  // Resume playback
-  resume: () => {
-    const { audioElement } = get()
-    if (audioElement && audioElement.src) {
-      audioElement.play()
+  resume: async () => {
+    const { sound } = get()
+    if (sound) {
+      await sound.playAsync()
       set({ isPlaying: true })
     }
   },
 
-  // Stop playback
-  stop: () => {
-    const { audioElement } = get()
-    if (audioElement) {
-      audioElement.pause()
-      audioElement.currentTime = 0
-      set({
-        isPlaying: false,
-        currentVerse: null,
-        currentAudioUrl: null,
-        currentRepeat: 0,
-      })
+  stop: async () => {
+    const { sound } = get()
+    if (sound) {
+      await sound.stopAsync()
+      set({ isPlaying: false, positionMs: 0 })
     }
   },
 
-  // Set queue of verses to play
-  setQueue: (verses: VerseReference[]) => {
-    set({ queue: verses, queueIndex: 0 })
-  },
-
-  // Play next verse in queue
-  playNext: async () => {
-    const { queue, queueIndex } = get()
-    if (queueIndex < queue.length - 1) {
-      const nextIndex = queueIndex + 1
-      set({ queueIndex: nextIndex })
-      const nextVerse = queue[nextIndex]
-      if (nextVerse) {
-        await get().playVerse(nextVerse)
-      }
+  seek: async (positionMs) => {
+    const { sound } = get()
+    if (sound) {
+      await sound.setPositionAsync(positionMs)
+      set({ positionMs })
     }
   },
 
-  // Play previous verse in queue
-  playPrevious: async () => {
-    const { queue, queueIndex } = get()
-    if (queueIndex > 0) {
-      const prevIndex = queueIndex - 1
-      set({ queueIndex: prevIndex })
-      const prevVerse = queue[prevIndex]
-      if (prevVerse) {
-        await get().playVerse(prevVerse)
-      }
-    }
-  },
-
-  // Set reciter
-  setReciter: (reciterId: string) => {
-    set({ selectedReciterId: reciterId })
-  },
-
-  // Set playback speed
-  setPlaybackSpeed: (speed: number) => {
-    const { audioElement } = get()
-    if (audioElement) {
-      audioElement.playbackRate = speed
+  setPlaybackSpeed: async (speed) => {
+    const { sound } = get()
+    if (sound) {
+      await sound.setRateAsync(speed, true)
     }
     set({ playbackSpeed: speed })
   },
 
-  // Set volume
-  setVolume: (volume: number) => {
-    const { audioElement } = get()
-    if (audioElement) {
-      audioElement.volume = volume
-    }
-    set({ volume })
+  setRepeatCount: (count) => {
+    set({ repeatCount: count })
   },
 
-  // Set repeat mode
-  setRepeatMode: (repeatMode) => {
-    set({ repeatMode, currentRepeat: 0 })
+  setAutoPlayNext: (enabled) => {
+    set({ autoPlayNext: enabled })
   },
 
-  // Set repeat count
-  setRepeatCount: (repeatCount) => {
-    set({ repeatCount })
+  setReciterId: (id) => {
+    set({ reciterId: id })
   },
 
-  // Set loop range
   setLoopRange: (start, end) => {
     set({ loopStart: start, loopEnd: end })
   },
 
-  // Cleanup
-  cleanup: () => {
-    const { audioElement } = get()
-    if (audioElement) {
-      audioElement.pause()
-      audioElement.src = ''
+  toggleLoop: () => {
+    set((state) => ({ isLooping: !state.isLooping }))
+  },
+
+  cleanup: async () => {
+    const { sound } = get()
+    if (sound) {
+      await sound.unloadAsync()
     }
-    set({
-      audioElement: null,
-      isPlaying: false,
-      currentVerse: null,
-      currentAudioUrl: null,
-    })
+    set(initialState)
   },
 }))
 
+// Playback status update handler
+function onPlaybackStatusUpdate(
+  status: AVPlaybackStatus,
+  set: (state: Partial<AudioState>) => void,
+  get: () => AudioState & AudioActions
+) {
+  if (!status.isLoaded) {
+    if (status.error) {
+      set({ error: status.error, isPlaying: false })
+    }
+    return
+  }
+
+  set({
+    positionMs: status.positionMillis,
+    durationMs: status.durationMillis || 0,
+    isPlaying: status.isPlaying,
+  })
+
+  // Handle playback finished
+  if (status.didJustFinish) {
+    const { repeatCount, currentRepeat, autoPlayNext, currentAyah, reciterId } = get()
+
+    // Check if we need to repeat
+    if (currentRepeat < repeatCount - 1) {
+      set({ currentRepeat: currentRepeat + 1 })
+      get().seek(0)
+      get().resume()
+    } else if (autoPlayNext && currentAyah) {
+      // Play next ayah
+      get().playAyah(
+        currentAyah.surahNumber,
+        currentAyah.ayahNumber + 1,
+        reciterId
+      )
+    } else {
+      set({ isPlaying: false })
+    }
+  }
+}
+
 // Selectors
 export const useIsPlaying = () => useAudioStore((s) => s.isPlaying)
-export const useCurrentVerse = () => useAudioStore((s) => s.currentVerse)
-export const useReciters = () => useAudioStore((s) => s.reciters)
-export const useAudioReciterId = () => useAudioStore((s) => s.selectedReciterId)
+export const useCurrentAyah = () => useAudioStore((s) => s.currentAyah)
+export const useAudioProgress = () =>
+  useAudioStore((s) => ({
+    position: s.positionMs,
+    duration: s.durationMs,
+  }))

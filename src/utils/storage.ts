@@ -1,194 +1,139 @@
-import { openDB, type DBSchema, type IDBPDatabase } from 'idb'
-import type { PageProgress, DailyProgress, UserStats } from '@/types'
-
 /**
- * IndexedDB storage for offline-first functionality
+ * AsyncStorage wrapper for React Native
  * Stores ONLY references and progress data, never Quranic text
  */
 
-interface QuranAppDB extends DBSchema {
-  // Page progress tracking
-  pageProgress: {
-    key: number // pageNumber
-    value: PageProgress
-    indexes: {
-      'by-status': string
-      'by-next-review': string
-    }
-  }
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import type { PageProgress, DailyProgress, UserStats } from '@/types'
 
-  // Daily progress history
-  dailyProgress: {
-    key: string // date string YYYY-MM-DD
-    value: DailyProgress
-  }
-
-  // User statistics
-  userStats: {
-    key: string // 'stats'
-    value: UserStats
-  }
-
-  // Cached API responses (for offline use)
-  apiCache: {
-    key: string // cache key (e.g., 'surahs', 'reciters', 'page-42')
-    value: {
-      data: unknown
-      cachedAt: number
-      expiresAt: number
-    }
-  }
-
-  // Downloaded audio files metadata
-  audioDownloads: {
-    key: string // reciterId-surahNumber-ayahNumber
-    value: {
-      reciterId: string
-      surahNumber: number
-      ayahNumber: number
-      url: string
-      downloadedAt: number
-    }
-  }
-
-  // Bookmarks
-  bookmarks: {
-    key: number // auto-increment
-    value: {
-      id?: number
-      pageNumber: number
-      surahNumber: number
-      ayahNumber: number
-      label: string
-      createdAt: string
-    }
-  }
-
-  // Settings
-  settings: {
-    key: string
-    value: unknown
-  }
-}
-
-const DB_NAME = 'quran-app'
-const DB_VERSION = 1
-
-let dbInstance: IDBPDatabase<QuranAppDB> | null = null
-
-/**
- * Get or create the database instance
- */
-export async function getDB(): Promise<IDBPDatabase<QuranAppDB>> {
-  if (dbInstance) return dbInstance
-
-  dbInstance = await openDB<QuranAppDB>(DB_NAME, DB_VERSION, {
-    upgrade(db) {
-      // Page progress store
-      if (!db.objectStoreNames.contains('pageProgress')) {
-        const pageStore = db.createObjectStore('pageProgress', { keyPath: 'pageNumber' })
-        pageStore.createIndex('by-status', 'status')
-        pageStore.createIndex('by-next-review', 'nextReviewAt')
-      }
-
-      // Daily progress store
-      if (!db.objectStoreNames.contains('dailyProgress')) {
-        db.createObjectStore('dailyProgress', { keyPath: 'date' })
-      }
-
-      // User stats store
-      if (!db.objectStoreNames.contains('userStats')) {
-        db.createObjectStore('userStats')
-      }
-
-      // API cache store
-      if (!db.objectStoreNames.contains('apiCache')) {
-        db.createObjectStore('apiCache')
-      }
-
-      // Audio downloads store
-      if (!db.objectStoreNames.contains('audioDownloads')) {
-        db.createObjectStore('audioDownloads')
-      }
-
-      // Bookmarks store
-      if (!db.objectStoreNames.contains('bookmarks')) {
-        db.createObjectStore('bookmarks', { keyPath: 'id', autoIncrement: true })
-      }
-
-      // Settings store
-      if (!db.objectStoreNames.contains('settings')) {
-        db.createObjectStore('settings')
-      }
-    },
-  })
-
-  return dbInstance
+// Storage keys
+const KEYS = {
+  PAGE_PROGRESS: 'page_progress_',
+  DAILY_PROGRESS: 'daily_progress_',
+  USER_STATS: 'user_stats',
+  API_CACHE: 'api_cache_',
+  BOOKMARKS: 'bookmarks',
+  SETTINGS: 'settings_',
 }
 
 // Page Progress operations
 export async function getPageProgress(pageNumber: number): Promise<PageProgress | undefined> {
-  const db = await getDB()
-  return db.get('pageProgress', pageNumber)
+  try {
+    const data = await AsyncStorage.getItem(`${KEYS.PAGE_PROGRESS}${pageNumber}`)
+    return data ? JSON.parse(data) : undefined
+  } catch (error) {
+    console.error('Failed to get page progress:', error)
+    return undefined
+  }
 }
 
 export async function setPageProgress(progress: PageProgress): Promise<void> {
-  const db = await getDB()
-  await db.put('pageProgress', progress)
+  try {
+    await AsyncStorage.setItem(
+      `${KEYS.PAGE_PROGRESS}${progress.pageNumber}`,
+      JSON.stringify(progress)
+    )
+  } catch (error) {
+    console.error('Failed to set page progress:', error)
+  }
 }
 
 export async function getAllPageProgress(): Promise<PageProgress[]> {
-  const db = await getDB()
-  return db.getAll('pageProgress')
+  try {
+    const keys = await AsyncStorage.getAllKeys()
+    const progressKeys = keys.filter(k => k.startsWith(KEYS.PAGE_PROGRESS))
+    const items = await AsyncStorage.multiGet(progressKeys)
+    return items
+      .map(([_, value]) => (value ? JSON.parse(value) : null))
+      .filter(Boolean) as PageProgress[]
+  } catch (error) {
+    console.error('Failed to get all page progress:', error)
+    return []
+  }
 }
 
 export async function getPagesByStatus(status: string): Promise<PageProgress[]> {
-  const db = await getDB()
-  return db.getAllFromIndex('pageProgress', 'by-status', status)
+  const allProgress = await getAllPageProgress()
+  return allProgress.filter(p => p.status === status)
 }
 
 // Daily Progress operations
 export async function getDailyProgress(date: string): Promise<DailyProgress | undefined> {
-  const db = await getDB()
-  return db.get('dailyProgress', date)
+  try {
+    const data = await AsyncStorage.getItem(`${KEYS.DAILY_PROGRESS}${date}`)
+    return data ? JSON.parse(data) : undefined
+  } catch (error) {
+    console.error('Failed to get daily progress:', error)
+    return undefined
+  }
 }
 
 export async function setDailyProgress(progress: DailyProgress): Promise<void> {
-  const db = await getDB()
-  await db.put('dailyProgress', progress)
+  try {
+    await AsyncStorage.setItem(
+      `${KEYS.DAILY_PROGRESS}${progress.date}`,
+      JSON.stringify(progress)
+    )
+  } catch (error) {
+    console.error('Failed to set daily progress:', error)
+  }
 }
 
 export async function getRecentDailyProgress(days: number = 30): Promise<DailyProgress[]> {
-  const db = await getDB()
-  const all = await db.getAll('dailyProgress')
-  return all.slice(-days)
+  try {
+    const keys = await AsyncStorage.getAllKeys()
+    const progressKeys = keys
+      .filter(k => k.startsWith(KEYS.DAILY_PROGRESS))
+      .sort()
+      .slice(-days)
+    const items = await AsyncStorage.multiGet(progressKeys)
+    return items
+      .map(([_, value]) => (value ? JSON.parse(value) : null))
+      .filter(Boolean) as DailyProgress[]
+  } catch (error) {
+    console.error('Failed to get recent daily progress:', error)
+    return []
+  }
 }
 
 // User Stats operations
 export async function getUserStats(): Promise<UserStats | undefined> {
-  const db = await getDB()
-  return db.get('userStats', 'stats')
+  try {
+    const data = await AsyncStorage.getItem(KEYS.USER_STATS)
+    return data ? JSON.parse(data) : undefined
+  } catch (error) {
+    console.error('Failed to get user stats:', error)
+    return undefined
+  }
 }
 
 export async function setUserStats(stats: UserStats): Promise<void> {
-  const db = await getDB()
-  await db.put('userStats', stats, 'stats')
+  try {
+    await AsyncStorage.setItem(KEYS.USER_STATS, JSON.stringify(stats))
+  } catch (error) {
+    console.error('Failed to set user stats:', error)
+  }
 }
 
 // API Cache operations
 export async function getCachedData<T>(key: string): Promise<T | null> {
-  const db = await getDB()
-  const cached = await db.get('apiCache', key)
+  try {
+    const data = await AsyncStorage.getItem(`${KEYS.API_CACHE}${key}`)
+    if (!data) return null
 
-  if (!cached) return null
+    const cached = JSON.parse(data)
 
-  // Check if expired
-  if (Date.now() > cached.expiresAt) {
-    await db.delete('apiCache', key)
+    // Check if expired
+    if (Date.now() > cached.expiresAt) {
+      await AsyncStorage.removeItem(`${KEYS.API_CACHE}${key}`)
+      return null
+    }
+
+    return cached.data as T
+  } catch (error) {
+    console.error('Failed to get cached data:', error)
     return null
   }
-
-  return cached.data as T
 }
 
 export async function setCachedData(
@@ -196,51 +141,88 @@ export async function setCachedData(
   data: unknown,
   ttlMs: number = 24 * 60 * 60 * 1000 // 24 hours default
 ): Promise<void> {
-  const db = await getDB()
-  await db.put('apiCache', {
-    data,
-    cachedAt: Date.now(),
-    expiresAt: Date.now() + ttlMs,
-  }, key)
+  try {
+    await AsyncStorage.setItem(
+      `${KEYS.API_CACHE}${key}`,
+      JSON.stringify({
+        data,
+        cachedAt: Date.now(),
+        expiresAt: Date.now() + ttlMs,
+      })
+    )
+  } catch (error) {
+    console.error('Failed to set cached data:', error)
+  }
+}
+
+// Bookmarks operations
+export interface Bookmark {
+  id: string
+  pageNumber: number
+  surahNumber: number
+  ayahNumber: number
+  label: string
+  createdAt: string
+}
+
+export async function getBookmarks(): Promise<Bookmark[]> {
+  try {
+    const data = await AsyncStorage.getItem(KEYS.BOOKMARKS)
+    return data ? JSON.parse(data) : []
+  } catch (error) {
+    console.error('Failed to get bookmarks:', error)
+    return []
+  }
+}
+
+export async function addBookmark(bookmark: Omit<Bookmark, 'id'>): Promise<void> {
+  try {
+    const bookmarks = await getBookmarks()
+    const newBookmark: Bookmark = {
+      ...bookmark,
+      id: Date.now().toString(),
+    }
+    bookmarks.push(newBookmark)
+    await AsyncStorage.setItem(KEYS.BOOKMARKS, JSON.stringify(bookmarks))
+  } catch (error) {
+    console.error('Failed to add bookmark:', error)
+  }
+}
+
+export async function deleteBookmark(id: string): Promise<void> {
+  try {
+    const bookmarks = await getBookmarks()
+    const filtered = bookmarks.filter(b => b.id !== id)
+    await AsyncStorage.setItem(KEYS.BOOKMARKS, JSON.stringify(filtered))
+  } catch (error) {
+    console.error('Failed to delete bookmark:', error)
+  }
 }
 
 // Settings operations
 export async function getSetting<T>(key: string): Promise<T | undefined> {
-  const db = await getDB()
-  return db.get('settings', key) as Promise<T | undefined>
+  try {
+    const data = await AsyncStorage.getItem(`${KEYS.SETTINGS}${key}`)
+    return data ? JSON.parse(data) : undefined
+  } catch (error) {
+    console.error('Failed to get setting:', error)
+    return undefined
+  }
 }
 
 export async function setSetting(key: string, value: unknown): Promise<void> {
-  const db = await getDB()
-  await db.put('settings', value, key)
-}
-
-// Bookmarks operations
-export async function addBookmark(bookmark: Omit<QuranAppDB['bookmarks']['value'], 'id'>): Promise<number> {
-  const db = await getDB()
-  return db.add('bookmarks', bookmark as QuranAppDB['bookmarks']['value'])
-}
-
-export async function getBookmarks(): Promise<QuranAppDB['bookmarks']['value'][]> {
-  const db = await getDB()
-  return db.getAll('bookmarks')
-}
-
-export async function deleteBookmark(id: number): Promise<void> {
-  const db = await getDB()
-  await db.delete('bookmarks', id)
+  try {
+    await AsyncStorage.setItem(`${KEYS.SETTINGS}${key}`, JSON.stringify(value))
+  } catch (error) {
+    console.error('Failed to set setting:', error)
+  }
 }
 
 // Clear all data (for testing/reset)
 export async function clearAllData(): Promise<void> {
-  const db = await getDB()
-  await Promise.all([
-    db.clear('pageProgress'),
-    db.clear('dailyProgress'),
-    db.clear('userStats'),
-    db.clear('apiCache'),
-    db.clear('audioDownloads'),
-    db.clear('bookmarks'),
-    db.clear('settings'),
-  ])
+  try {
+    await AsyncStorage.clear()
+  } catch (error) {
+    console.error('Failed to clear all data:', error)
+  }
 }
