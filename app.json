@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "QuranApp",
+    "slug": "quranapp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "scheme": "quranapp",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1B5E20"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.quranapp.mobile",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"]
+      },
+      "usesAppleSignIn": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1B5E20"
+      },
+      "package": "com.quranapp.mobile",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["android.permission.INTERNET"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-secure-store",
+      "expo-apple-authentication",
+      [
+        "expo-av",
+        {
+          "microphonePermission": false
+        }
+      ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "quranapp"
+      }
+    }
+  }
+}
