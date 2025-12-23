@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { Audio, AVPlaybackStatus } from 'expo-av'
+import { Audio } from 'expo-av'
 import type { VerseReference } from '@/types'
 import { getAyahAudioUrl } from '@/services/alquran-cloud'
 
@@ -11,6 +11,7 @@ interface AudioState {
 
   // Current playback
   currentAyah: VerseReference | null
+  currentAudioUrl: string | null
   reciterId: string
 
   // Playback settings
@@ -59,6 +60,7 @@ const initialState: AudioState = {
   isLoading: false,
   sound: null,
   currentAyah: null,
+  currentAudioUrl: null,
   reciterId: 'ar.alafasy',
   playbackSpeed: 1,
   repeatCount: 1,
@@ -81,7 +83,7 @@ export const useAudioStore = create<AudioState & AudioActions>()((set, get) => (
     set({ isLoading: true, error: null })
 
     try {
-      // Cleanup previous sound
+      // Unload previous sound if exists
       if (currentSound) {
         await currentSound.unloadAsync()
       }
@@ -89,24 +91,44 @@ export const useAudioStore = create<AudioState & AudioActions>()((set, get) => (
       // Get audio URL from API
       const audioUrl = await getAyahAudioUrl(surahNumber, ayahNumber, reciterId)
 
-      // Create new sound
+      // Configure audio mode for playback
+      await Audio.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+        staysActiveInBackground: true,
+      })
+
+      // Create and load the sound
       const { sound } = await Audio.Sound.createAsync(
         { uri: audioUrl },
         { shouldPlay: true, rate: get().playbackSpeed },
-        (status) => onPlaybackStatusUpdate(status, set, get)
+        (status) => {
+          if (status.isLoaded) {
+            set({
+              isPlaying: status.isPlaying,
+              positionMs: status.positionMillis || 0,
+              durationMs: status.durationMillis || 0,
+            })
+
+            // Handle playback finished
+            if (status.didJustFinish) {
+              set({ isPlaying: false, positionMs: 0 })
+            }
+          }
+        }
       )
 
       set({
         sound,
+        currentAudioUrl: audioUrl,
         currentAyah: {
           surahNumber,
           ayahNumber,
-          pageNumber: 0, // Will be updated from API data
+          pageNumber: 0,
           juz: 0,
         },
         reciterId,
-        isPlaying: true,
         isLoading: false,
+        isPlaying: true,
         currentRepeat: 0,
       })
     } catch (error) {
@@ -138,6 +160,7 @@ export const useAudioStore = create<AudioState & AudioActions>()((set, get) => (
     const { sound } = get()
     if (sound) {
       await sound.stopAsync()
+      await sound.setPositionAsync(0)
       set({ isPlaying: false, positionMs: 0 })
     }
   },
@@ -186,47 +209,6 @@ export const useAudioStore = create<AudioState & AudioActions>()((set, get) => (
     set(initialState)
   },
 }))
-
-// Playback status update handler
-function onPlaybackStatusUpdate(
-  status: AVPlaybackStatus,
-  set: (state: Partial<AudioState>) => void,
-  get: () => AudioState & AudioActions
-) {
-  if (!status.isLoaded) {
-    if (status.error) {
-      set({ error: status.error, isPlaying: false })
-    }
-    return
-  }
-
-  set({
-    positionMs: status.positionMillis,
-    durationMs: status.durationMillis || 0,
-    isPlaying: status.isPlaying,
-  })
-
-  // Handle playback finished
-  if (status.didJustFinish) {
-    const { repeatCount, currentRepeat, autoPlayNext, currentAyah, reciterId } = get()
-
-    // Check if we need to repeat
-    if (currentRepeat < repeatCount - 1) {
-      set({ currentRepeat: currentRepeat + 1 })
-      get().seek(0)
-      get().resume()
-    } else if (autoPlayNext && currentAyah) {
-      // Play next ayah
-      get().playAyah(
-        currentAyah.surahNumber,
-        currentAyah.ayahNumber + 1,
-        reciterId
-      )
-    } else {
-      set({ isPlaying: false })
-    }
-  }
-}
 
 // Selectors
 export const useIsPlaying = () => useAudioStore((s) => s.isPlaying)

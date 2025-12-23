@@ -121,10 +121,24 @@ export async function getCachedData<T>(key: string): Promise<T | null> {
     const data = await AsyncStorage.getItem(`${KEYS.API_CACHE}${key}`)
     if (!data) return null
 
-    const cached = JSON.parse(data)
+    let cached: { data: T; expiresAt: number }
+    try {
+      cached = JSON.parse(data)
+    } catch (parseError) {
+      // Cache is corrupted, remove it
+      console.warn(`Corrupted cache for key ${key}, removing...`)
+      await AsyncStorage.removeItem(`${KEYS.API_CACHE}${key}`)
+      return null
+    }
 
     // Check if expired
-    if (Date.now() > cached.expiresAt) {
+    if (!cached.expiresAt || Date.now() > cached.expiresAt) {
+      await AsyncStorage.removeItem(`${KEYS.API_CACHE}${key}`)
+      return null
+    }
+
+    // Validate cached data exists
+    if (cached.data === undefined || cached.data === null) {
       await AsyncStorage.removeItem(`${KEYS.API_CACHE}${key}`)
       return null
     }
@@ -132,6 +146,10 @@ export async function getCachedData<T>(key: string): Promise<T | null> {
     return cached.data as T
   } catch (error) {
     console.error('Failed to get cached data:', error)
+    // Clear potentially corrupted cache
+    try {
+      await AsyncStorage.removeItem(`${KEYS.API_CACHE}${key}`)
+    } catch {}
     return null
   }
 }

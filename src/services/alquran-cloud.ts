@@ -32,19 +32,49 @@ const CACHE_TTL = {
  * Generic fetch wrapper with error handling
  */
 async function fetchFromAPI<T>(endpoint: string): Promise<T> {
-  const response = await fetch(`${BASE_URL}${endpoint}`)
+  const url = `${BASE_URL}${endpoint}`
 
-  if (!response.ok) {
-    throw new Error(`API request failed: ${response.status} ${response.statusText}`)
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status} ${response.statusText}`)
+    }
+
+    // Get response text first to debug parsing issues
+    const text = await response.text()
+
+    if (!text || text.trim().length === 0) {
+      throw new Error('Empty response from API')
+    }
+
+    // Try to parse JSON
+    let data: AlQuranCloudResponse<T>
+    try {
+      data = JSON.parse(text)
+    } catch (parseError) {
+      console.error('JSON Parse Error for URL:', url)
+      console.error('Response text (first 200 chars):', text.substring(0, 200))
+      throw new Error(`Invalid JSON response from API: ${text.substring(0, 50)}...`)
+    }
+
+    if (data.code !== 200 || data.status !== 'OK') {
+      throw new Error(`API error: ${data.status}`)
+    }
+
+    return data.data
+  } catch (error) {
+    // Re-throw with more context
+    if (error instanceof TypeError && error.message.includes('Network')) {
+      throw new Error(`Network error fetching ${endpoint}. Please check your connection.`)
+    }
+    throw error
   }
-
-  const data: AlQuranCloudResponse<T> = await response.json()
-
-  if (data.code !== 200 || data.status !== 'OK') {
-    throw new Error(`API error: ${data.status}`)
-  }
-
-  return data.data
 }
 
 /**

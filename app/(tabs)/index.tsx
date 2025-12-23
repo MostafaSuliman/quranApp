@@ -190,10 +190,6 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
     elevation: 3,
   },
   statValue: {
